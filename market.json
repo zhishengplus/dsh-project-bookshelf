@@ -54,9 +54,23 @@
       },
       "versions": [
         {
+          "version": "1.1.1",
+          "publishTimestamp": 1794669611,
+          "engines": {
+            "dsh": ">=0.2.2-rc.3 <0.3.0"
+          },
+          "source": {
+            "type": "git",
+            "url": "https://github.com/zhishengplus/dsh-project-bookshelf",
+            "commit": "55ad42723db0000ff421e771c89d7640dc81f427"
+          }
+        },
+        {
           "version": "1.1.0",
           "publishTimestamp": 1794652443,
-          "engines": {"dsh": ">=0.2.2-rc.3 <0.3.0"},
+          "engines": {
+            "dsh": ">=0.2.2-rc.3 <0.3.0"
+          },
           "source": {
             "type": "git",
             "url": "https://github.com/zhishengplus/dsh-project-bookshelf",
