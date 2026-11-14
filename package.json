@@ -1,0 +1,58 @@
+{
+  "name": "dsh-project-bookshelf",
+  "version": "1.0.0",
+  "author": "zhishengplus",
+  "description": "项目书架 · 用封面认项目，把每段会话收进它自己的章节。DeepSeek Harness 社区插件。",
+  "type": "module",
+  "license": "MIT",
+  "engines": { "dsh": ">=0.2.2-rc.3 <0.3.0" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhishengplus/dsh-project-bookshelf.git"
+  },
+  "homepage": "https://github.com/zhishengplus/dsh-project-bookshelf",
+  "bugs": "https://github.com/zhishengplus/dsh-project-bookshelf/issues",
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "bookshelf",
+    "workspace",
+    "productivity",
+    "session-management"
+  ],
+  "icon": "./icon.svg",
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./icon": "./icon.svg",
+    "./package.json": "./package.json",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./locale/*.json": "./locale/*.json"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "cordis.patch.yml",
+    "locale",
+    "icon.svg",
+    "docs/DETAIL*.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web"
+    }
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.12"
+  }
+}

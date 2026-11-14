@@ -1,0 +1,1 @@
+Expand **Project Bookshelf** below New session. Select the cover to browse or search the collection by project name or category. Open a chapter to resume its conversation, or edit the cover with the pencil. Cover settings are stored in this client.

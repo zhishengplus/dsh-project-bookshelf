@@ -1,0 +1,38 @@
+.cover {
+  display: block; position: relative; isolation: isolate; overflow: hidden; width: 100%;
+  box-sizing: border-box; color: var(--print); background: var(--cloth); text-align: start;
+  border-radius: 3px 8px 8px 3px; container-type: inline-size;
+}
+.spine {
+  position: absolute; inset: 0 auto 0 0; width: 8px; z-index: 1;
+  background: linear-gradient(90deg, color-mix(in srgb,var(--print) 53%,var(--cloth)), var(--cloth) 40%, color-mix(in srgb,var(--print) 32%,var(--cloth)) 84%, var(--cloth));
+  border-right: 1px solid color-mix(in srgb, var(--print) 25%, var(--cloth));
+}
+.paper { display: block; height: 3px; margin-left: 3px; border-top: 1px solid color-mix(in srgb, var(--print) 35%, var(--cloth));
+  background: color-mix(in srgb, var(--cloth) 75%, var(--print)); }
+.face { position: relative; min-height: 109px; display: flex; flex-direction: column; align-items: flex-start;
+  box-sizing: border-box; padding: 12px 34% 11px 21px; }
+.title { max-width: 100%; overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;
+  overflow-wrap: anywhere; margin: auto 0 2px; padding-top: 8px; font: 500 26px/1.12 Georgia,'Songti SC',SimSun,serif;
+  letter-spacing: -.035em; }
+.imprint, .caption, .alias { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: inherit; font-size: 11px; line-height: 16px; }
+.alias { margin: 1px 0 3px; font-weight: 500; font-size: 13px; }
+.imprint { padding-bottom: 2px; border-bottom: 1px solid color-mix(in srgb, var(--print) 40%, transparent); }
+.caption { font-variant-numeric: tabular-nums; }
+.print { position: absolute; inset: 0; overflow: hidden; isolation: isolate; color: var(--print); }
+.cover > .print { left: auto; width: 32%; }
+.mini { position: relative; display: block; width: 100%; height: 100%; box-sizing: border-box; overflow: hidden;
+  border-radius: 2px 4px 4px 2px; background: var(--cloth); color: var(--print);
+  box-shadow: inset 0 -2px 0 color-mix(in srgb, var(--cloth) 65%, var(--print)), 0 1px 2px #0002; }
+.mini::after { content: ''; position: absolute; inset: 0 auto 1px 0; width: 15%;
+  background: linear-gradient(90deg, color-mix(in srgb,var(--print) 44%,var(--cloth)), var(--cloth) 55%,color-mix(in srgb,var(--print) 27%,var(--cloth))); }
+.mini > .print { inset: 2% 2% 4% 13%; }
+.print::before { content: ''; position: absolute; inset: 0; background: var(--print); opacity: .13;
+  clip-path: polygon(55% 0,100% 0,100% 100%,0 100%); }
+.print::after { content: ''; position: absolute; inset: auto 8% 8% 17%; height: 3%; border-block: 1px solid currentColor; opacity: .40; }
+.plate,.offset { position: absolute; display: grid; place-items: center; inset: 13% 2% 14% 0; transform: rotate(-9deg); }
+.offset { transform: translate(4%,5%) rotate(-9deg); opacity: .19; }
+.print svg { width: 100%; height: 100%; }
+.signal { position: absolute; top: 4px; inset-inline-end: 4px; background: var(--print); color: var(--cloth);
+  border-radius: 3px; padding: 1px 4px; font-size: 10px; line-height: 15px; }
+@container (max-width: 215px) { .face { padding-inline-start: 15px; } .title { font-size: 22px; } }
