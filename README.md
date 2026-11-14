@@ -6,7 +6,7 @@
 
 **把项目摆上书架，把会话翻成章节。**
 
-[下载 v1.0.0](https://github.com/zhishengplus/dsh-project-bookshelf/releases/download/v1.0.0/dsh-project-bookshelf-1.0.0.tgz)　·　[在 DSH 中安装](#install)　·　[看操作演示](#demo)　·　[English](README.en.md)
+[下载 v1.1.0](https://github.com/zhishengplus/dsh-project-bookshelf/releases/download/v1.1.0/dsh-project-bookshelf-1.1.0.tgz)　·　[在 DSH 中安装](#install)　·　[看操作演示](#demo)　·　[English](README.en.md)
 
 </div>
 
@@ -14,7 +14,9 @@
 
 昨天聊到哪儿了？认出「潮汐手册」的青瓷色封面，点一下 **继续**，就能回到「给潮间带写一页索引」那段会话。项目多的时候，点开封面，整架书都在眼前。
 
-**项目书架**是 DeepSeek Harness 的独立社区插件。已有工作区自动成为书，文件夹名直接印在封面上。原生会话列表仍在侧栏，和书架放在一起。
+**安装后，整个工作区默认变成项目书架。** 你已有的项目自动成为书，文件夹名印在封面上，每段会话成为对应项目里的章节。点书封换项目，点章节继续原来的对话。
+
+书架底部的 **原版工作区** 可以随时切回 DSH 原有列表，再点 **书架模式** 回来。两种视图使用同一批项目、会话、置顶和归档记录，选择的模式会记住。
 
 <a id="install"></a>
 ## 把书架装进 DSH
@@ -25,7 +27,7 @@
 https://raw.githubusercontent.com/zhishengplus/dsh-project-bookshelf/main/market.json
 ```
 
-安装后，展开左侧栏，在「新会话」下面找到 **项目书架**。有项目时会直接显示封面；第一次使用可以点书架标题右侧的文件夹按钮，添加一个已有目录。
+安装后，展开左侧栏，原工作区位置就会显示 **项目书架** 和你已有的项目。第一次使用可以点书架标题右侧的文件夹按钮，浏览并添加一个已有目录。
 
 <details>
 <summary><b>使用 Web 版、命令行或下载的安装包</b></summary>
@@ -33,7 +35,7 @@ https://raw.githubusercontent.com/zhishengplus/dsh-project-bookshelf/main/market
 已安装 DSH CLI 的 Web 用户运行：
 
 ```sh
-dsh plugin --profile web add https://github.com/zhishengplus/dsh-project-bookshelf/releases/download/v1.0.0/dsh-project-bookshelf-1.0.0.tgz
+dsh plugin --profile web add https://github.com/zhishengplus/dsh-project-bookshelf/releases/download/v1.1.0/dsh-project-bookshelf-1.1.0.tgz
 ```
 
 也可以从 [Releases](https://github.com/zhishengplus/dsh-project-bookshelf/releases/latest) 下载 `.tgz`，再将命令里的 URL 换成本地安装包的绝对路径。使用 Desktop **内置命令**时，将 `--profile web` 换成 `--profile desktop`。普通 npm CLI 管理的是 Web 等 profile。
@@ -48,7 +50,13 @@ dsh plugin --profile web add https://github.com/zhishengplus/dsh-project-bookshe
 - **认封面。** 文件夹名是书名，显示别名是副标题。相似的项目也能用纸色、印记和分类区分。
 - **找项目。** 点当前书封打开目录。输入书名的一部分、别名或分类，或直接用分类下拉框筛选。
 - **接着做。** 点「继续」打开最近更新的章节，或点具体章节回到原会话。需要另起话题时，用章节栏旁的「新会话」。
-- **省空间。** 长目录先显示前三章，可展开全部。点「项目书架」标题收起整架书，原生工作区仍然可用。
+- **接入现有记录。** 未分组会话也有自己的书封。置顶会话排在前面，会话菜单可继续重命名、置顶和归档，归档列表支持恢复。
+
+## 一键回到原版工作区
+
+![从书架切换到原版工作区，再返回书架，项目与会话保持对应](docs/media/switch.gif)
+
+点击书架底部的 **原版工作区**，原生列表立即出现。点击「新会话」旁的 **书架模式** 返回。切换无需重启，刷新后会沿用你选择的模式。
 
 ## 给项目做一张自己的封面
 
@@ -60,8 +68,8 @@ dsh plugin --profile web add https://github.com/zhishengplus/dsh-project-bookshe
 
 ## 数据和兼容性
 
-- 书架使用 DSH 已有的工作区和会话服务。外观、别名、分类及书封提醒偏好保存在当前客户端的本地存储。换浏览器或清除站点数据后，需要重新设置封面。
-- 文件夹的实际名称始终用于主标题；改书封别名不会重命名磁盘上的目录。已归档、空白和子智能体会话不会作为章节列出。
+- 书架直接使用 DSH 已有的工作区和会话服务，安装时自动展示已有记录。显示名称通过 DSH 保存，纸色、印记、分类和提醒偏好在支持工作区元数据的宿主中跟随项目保存，其余版本保存在当前客户端。
+- 文件夹的实际名称用于封面主标题，显示别名作为副标题。当前空白会话会显示在章节里，已归档记录可以从归档入口查看。子智能体仍通过 DSH 对应会话中的入口访问。
 - 展示素材录自 **Windows 上的官方 DSH Web 0.2.2-rc.3**，使用独立配置和六个虚构项目。动图按真实操作步骤剪辑。安装包内已包含构建好的客户端。
 - 卸载可在「插件 → 已安装」中操作。CLI 使用 `dsh plugin --profile web remove dsh-project-bookshelf`。卸载书架会移除入口，原有工作区和会话仍由 DSH 管理。
 

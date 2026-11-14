@@ -4,7 +4,7 @@ window.__ModuleLoader__.load({
   meta() { return {} },
   factory(require) {
     const module = { exports: {} };
-    const BOOKSHELF_STYLES = "/* src/ProjectCover.module.css */\n.ProjectCover_cover {\n  display: block;\n  position: relative;\n  isolation: isolate;\n  overflow: hidden;\n  width: 100%;\n  box-sizing: border-box;\n  color: var(--print);\n  background: var(--cloth);\n  text-align: start;\n  border-radius: 3px 8px 8px 3px;\n  container-type: inline-size;\n}\n.ProjectCover_spine {\n  position: absolute;\n  inset: 0 auto 0 0;\n  width: 8px;\n  z-index: 1;\n  background:\n    linear-gradient(\n      90deg,\n      color-mix(in srgb, var(--print) 53%, var(--cloth)),\n      var(--cloth) 40%,\n      color-mix(in srgb, var(--print) 32%, var(--cloth)) 84%,\n      var(--cloth));\n  border-right: 1px solid color-mix(in srgb, var(--print) 25%, var(--cloth));\n}\n.ProjectCover_paper {\n  display: block;\n  height: 3px;\n  margin-left: 3px;\n  border-top: 1px solid color-mix(in srgb, var(--print) 35%, var(--cloth));\n  background: color-mix(in srgb, var(--cloth) 75%, var(--print));\n}\n.ProjectCover_face {\n  position: relative;\n  min-height: 109px;\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  box-sizing: border-box;\n  padding: 12px 34% 11px 21px;\n}\n.ProjectCover_title {\n  max-width: 100%;\n  overflow: hidden;\n  display: -webkit-box;\n  -webkit-box-orient: vertical;\n  -webkit-line-clamp: 2;\n  overflow-wrap: anywhere;\n  margin: auto 0 2px;\n  padding-top: 8px;\n  font:\n    500 26px/1.12 Georgia,\n    \"Songti SC\",\n    SimSun,\n    serif;\n  letter-spacing: -.035em;\n}\n.ProjectCover_imprint,\n.ProjectCover_caption,\n.ProjectCover_alias {\n  max-width: 100%;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  font-family: inherit;\n  font-size: 11px;\n  line-height: 16px;\n}\n.ProjectCover_alias {\n  margin: 1px 0 3px;\n  font-weight: 500;\n  font-size: 13px;\n}\n.ProjectCover_imprint {\n  padding-bottom: 2px;\n  border-bottom: 1px solid color-mix(in srgb, var(--print) 40%, transparent);\n}\n.ProjectCover_caption {\n  font-variant-numeric: tabular-nums;\n}\n.ProjectCover_print {\n  position: absolute;\n  inset: 0;\n  overflow: hidden;\n  isolation: isolate;\n  color: var(--print);\n}\n.ProjectCover_cover > .ProjectCover_print {\n  left: auto;\n  width: 32%;\n}\n.ProjectCover_mini {\n  position: relative;\n  display: block;\n  width: 100%;\n  height: 100%;\n  box-sizing: border-box;\n  overflow: hidden;\n  border-radius: 2px 4px 4px 2px;\n  background: var(--cloth);\n  color: var(--print);\n  box-shadow: inset 0 -2px 0 color-mix(in srgb, var(--cloth) 65%, var(--print)), 0 1px 2px #0002;\n}\n.ProjectCover_mini::after {\n  content: \"\";\n  position: absolute;\n  inset: 0 auto 1px 0;\n  width: 15%;\n  background:\n    linear-gradient(\n      90deg,\n      color-mix(in srgb, var(--print) 44%, var(--cloth)),\n      var(--cloth) 55%,\n      color-mix(in srgb, var(--print) 27%, var(--cloth)));\n}\n.ProjectCover_mini > .ProjectCover_print {\n  inset: 2% 2% 4% 13%;\n}\n.ProjectCover_print::before {\n  content: \"\";\n  position: absolute;\n  inset: 0;\n  background: var(--print);\n  opacity: .13;\n  clip-path: polygon(55% 0, 100% 0, 100% 100%, 0 100%);\n}\n.ProjectCover_print::after {\n  content: \"\";\n  position: absolute;\n  inset: auto 8% 8% 17%;\n  height: 3%;\n  border-block: 1px solid currentColor;\n  opacity: .40;\n}\n.ProjectCover_plate,\n.ProjectCover_offset {\n  position: absolute;\n  display: grid;\n  place-items: center;\n  inset: 13% 2% 14% 0;\n  transform: rotate(-9deg);\n}\n.ProjectCover_offset {\n  transform: translate(4%, 5%) rotate(-9deg);\n  opacity: .19;\n}\n.ProjectCover_print svg {\n  width: 100%;\n  height: 100%;\n}\n.ProjectCover_signal {\n  position: absolute;\n  top: 4px;\n  inset-inline-end: 4px;\n  background: var(--print);\n  color: var(--cloth);\n  border-radius: 3px;\n  padding: 1px 4px;\n  font-size: 10px;\n  line-height: 15px;\n}\n@container (max-width: 215px) {\n  .ProjectCover_face {\n    padding-inline-start: 15px;\n  }\n  .ProjectCover_title {\n    font-size: 22px;\n  }\n}\n\n/* src/project-appearance.module.css */\n.project_appearance_dialog.project_appearance_dialog {\n  width: min(840px, 100%);\n  max-height: 100%;\n  min-height: 0;\n  padding: 0;\n  gap: 0;\n}\n.project_appearance_dialogHeader,\n.project_appearance_dialogFooter {\n  flex: none;\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 15px 21px;\n}\n.project_appearance_dialogHeader {\n  justify-content: space-between;\n}\n.project_appearance_dialogHeader h2 {\n  margin: 0;\n  font-size: 18px;\n  font-weight: 500;\n  line-height: 26px;\n}\n.project_appearance_closeButton {\n  display: grid;\n  place-items: center;\n  width: 30px;\n  height: 30px;\n  padding: 0;\n  border: 0;\n  border-radius: var(--dsw-radius-md);\n  color: var(--dsw-alias-label-secondary);\n  background: transparent;\n  cursor: pointer;\n}\n.project_appearance_dialogForm {\n  display: flex;\n  flex-direction: column;\n  min-height: 0;\n}\n.project_appearance_workbench {\n  display: grid;\n  grid-template-columns: minmax(200px, 34%) minmax(0, 1fr);\n  min-height: 0;\n  overflow: auto;\n  border-block: 1px solid var(--dsw-alias-border-l2);\n}\n.project_appearance_preview {\n  box-sizing: border-box;\n  min-width: 0;\n  padding: 22px 16px;\n  border-inline-end: 1px solid var(--dsw-alias-border-l2);\n  background: var(--dsw-alias-bg-layer-1);\n}\n.project_appearance_previewEyebrow {\n  display: block;\n  margin-bottom: 15px;\n  font-size: 12px;\n  color: var(--dsw-alias-label-secondary);\n}\n.project_appearance_proof {\n  border-radius: 3px 8px 8px 3px;\n  box-shadow: 0 3px 0 -1px color-mix(in srgb, var(--print) 42%, var(--cloth)), 0 8px 15px -10px #0009;\n}\n.project_appearance_directory {\n  display: grid;\n  gap: 4px;\n  margin-top: 20px;\n  font-size: 11px;\n  line-height: 16px;\n  color: var(--dsw-alias-label-secondary);\n}\n.project_appearance_directory bdi {\n  overflow-wrap: anywhere;\n  color: var(--dsw-alias-label-primary);\n  user-select: text;\n}\n.project_appearance_editor {\n  min-width: 0;\n  padding: 20px 22px;\n}\n.project_appearance_form {\n  display: grid;\n  gap: 14px;\n}\n.project_appearance_field {\n  display: grid;\n  gap: 6px;\n  min-width: 0;\n  padding: 0;\n  margin: 0;\n  border: 0;\n}\n.project_appearance_label {\n  padding: 0;\n  color: var(--dsw-alias-label-secondary);\n  font-size: 12px;\n  line-height: 17px;\n  font-weight: 500;\n}\n.project_appearance_field > legend {\n  margin-bottom: 6px;\n}\n.project_appearance_field input {\n  box-sizing: border-box;\n  width: 100%;\n  min-height: 35px;\n  font-size: 13px;\n}\n.project_appearance_swatches {\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 4px;\n}\n.project_appearance_swatch {\n  position: relative;\n  display: grid;\n  place-items: center;\n  width: 29px;\n  height: 29px;\n  padding: 0;\n  border: 1px solid transparent;\n  border-radius: 50%;\n  color: var(--print);\n  background: transparent;\n  cursor: pointer;\n}\n.project_appearance_swatchPaint {\n  position: absolute;\n  inset: 3px;\n  border-radius: 50%;\n  background: var(--cloth);\n  box-shadow: inset 0 0 0 1px #0001;\n}\n.project_appearance_swatch svg {\n  position: relative;\n}\n.project_appearance_swatch[aria-pressed=true] {\n  border-color: var(--dsw-alias-label-primary);\n}\n.project_appearance_icons {\n  display: grid;\n  grid-template-columns: repeat(6, minmax(0, 1fr));\n  gap: 5px;\n}\n.project_appearance_iconOption {\n  min-width: 0;\n  display: grid;\n  grid-template-rows: 26px auto;\n  justify-items: center;\n  align-items: center;\n  gap: 2px;\n  padding: 4px 2px 3px;\n  border: 1px solid transparent;\n  border-radius: var(--dsw-radius-md);\n  color: var(--dsw-alias-label-secondary);\n  background: var(--dsw-alias-interactive-bg-hover);\n  cursor: pointer;\n  font: inherit;\n  font-size: 10px;\n}\n.project_appearance_iconOption > span:last-child {\n  max-width: 100%;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.project_appearance_sample {\n  width: 22px;\n  height: 26px;\n}\n.project_appearance_iconOption[aria-pressed=true],\n.project_appearance_notification[aria-pressed=true],\n.project_appearance_statusOption[aria-pressed=true] {\n  border-color: var(--dsw-alias-state-business-primary);\n  color: var(--dsw-alias-label-primary);\n}\n.project_appearance_advanced {\n  border-block-start: 1px solid var(--dsw-alias-border-l2);\n  padding-top: 9px;\n}\n.project_appearance_advanced summary {\n  color: var(--dsw-alias-label-primary);\n  cursor: pointer;\n  font-size: 12px;\n  line-height: 24px;\n}\n.project_appearance_advanced summary span {\n  color: var(--dsw-alias-label-secondary);\n  margin-inline-start: 9px;\n  font-size: 11px;\n}\n.project_appearance_advanced > fieldset {\n  margin: 9px 0 0;\n}\n.project_appearance_notifications,\n.project_appearance_statusChoices {\n  display: flex;\n  gap: 5px;\n  flex-wrap: wrap;\n}\n.project_appearance_notification,\n.project_appearance_statusOption {\n  min-height: 30px;\n  padding: 3px 8px;\n  display: flex;\n  align-items: center;\n  gap: 5px;\n  cursor: pointer;\n  font: inherit;\n  font-size: 12px;\n  color: var(--dsw-alias-label-secondary);\n  border-radius: var(--dsw-radius-sm);\n  border: 1px solid var(--dsw-alias-border-l2);\n  background: transparent;\n}\n.project_appearance_choiceDot:empty {\n  display: none;\n}\n.project_appearance_choiceDot {\n  display: inline-flex;\n}\n.project_appearance_dialogFooter {\n  justify-content: flex-end;\n}\n.project_appearance_error {\n  margin-top: 12px;\n  color: var(--dsw-alias-state-error-primary);\n  font-size: 12px;\n  overflow-wrap: anywhere;\n}\n.project_appearance_form button:focus-visible,\n.project_appearance_closeButton:focus-visible,\n.project_appearance_advanced summary:focus-visible {\n  outline: 2px solid var(--dsw-alias-state-business-primary);\n  outline-offset: 1px;\n}\n.project_appearance_form button:disabled,\n.project_appearance_closeButton:disabled {\n  cursor: default;\n  opacity: .6;\n}\n@media (hover: hover) {\n  .project_appearance_closeButton:hover,\n  .project_appearance_iconOption:hover,\n  .project_appearance_notification:hover,\n  .project_appearance_statusOption:hover {\n    background: var(--dsw-alias-interactive-bg-hover);\n  }\n}\n@media (max-width: 670px) {\n  .project_appearance_workbench {\n    grid-template-columns: minmax(0, 1fr);\n  }\n  .project_appearance_preview {\n    padding: 12px 17px;\n    display: grid;\n    grid-template-columns: minmax(140px, 1.4fr) minmax(0, 1fr);\n    align-items: center;\n    gap: 6px 14px;\n    border-inline-end: 0;\n    border-bottom: 1px solid var(--dsw-alias-border-l2);\n  }\n  .project_appearance_previewEyebrow {\n    grid-column: 2;\n    align-self: end;\n    margin: 0;\n  }\n  .project_appearance_proof {\n    grid-column: 1;\n    grid-row: 1 / 3;\n  }\n  .project_appearance_directory {\n    grid-column: 2;\n    align-self: start;\n    margin: 0;\n    max-height: 74px;\n    overflow: auto;\n  }\n  .project_appearance_editor {\n    padding: 14px 17px;\n  }\n  .project_appearance_dialogHeader,\n  .project_appearance_dialogFooter {\n    padding: 10px 16px;\n  }\n}\n@media (max-width: 420px) {\n  .project_appearance_icons {\n    grid-template-columns: repeat(4, minmax(0, 1fr));\n  }\n  .project_appearance_editor {\n    padding-inline: 12px;\n  }\n  .project_appearance_preview {\n    grid-template-columns: minmax(130px, 1.5fr) minmax(0, 1fr);\n  }\n}\n\n/* src/shelf.module.css */\n.shelf_stack {\n  display: grid;\n  flex: 1;\n  min-width: 0;\n  gap: 9px;\n}\n.shelf_hostRow,\n.shelf_tools,\n.shelf_chapterHead,\n.shelf_toggle,\n.shelf_resume,\n.shelf_filters,\n.shelf_catalogInner header {\n  display: flex;\n  align-items: center;\n}\n.shelf_hostRow {\n  gap: 6px;\n  min-width: 0;\n}\n.shelf_shelf {\n  color: var(--dsw-alias-label-primary);\n  min-width: 0;\n}\n.shelf_tools,\n.shelf_chapterHead {\n  gap: 4px;\n}\n.shelf_shelf button,\n.shelf_toggle,\n.shelf_catalogInner button,\n.shelf_pathForm button {\n  font: inherit;\n  color: inherit;\n  border: 0;\n  background: transparent;\n  cursor: pointer;\n}\n.shelf_tools button,\n.shelf_chapterHead button,\n.shelf_toggle {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  padding: 4px;\n  border-radius: 5px;\n}\n.shelf_tools .shelf_toggle {\n  flex: 1;\n  justify-content: flex-start;\n  gap: 8px;\n  text-align: start;\n  font-size: 13px;\n}\n.shelf_toggle span {\n  margin-left: auto;\n  color: var(--dsw-alias-label-secondary);\n}\n.shelf_body {\n  overflow: auto;\n  max-height: min(39vh, 350px);\n  padding: 4px 2px 3px;\n  scrollbar-width: thin;\n}\n.shelf_shelf .shelf_coverButton,\n.shelf_grid .shelf_coverButton {\n  display: block;\n  box-sizing: border-box;\n  width: 100%;\n  min-width: 0;\n  padding: 0;\n  text-align: start;\n  border-radius: 3px 8px 8px 3px;\n  box-shadow: 0 2px 3px #0002;\n}\n.shelf_coverButton:hover {\n  filter: brightness(1.035);\n}\n.shelf_shelf .shelf_resume {\n  width: 100%;\n  padding: 6px 5px;\n  gap: 7px;\n  font-size: 12px;\n}\n.shelf_resume strong,\n.shelf_chapters button span {\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  text-align: start;\n}\n.shelf_resume span,\n.shelf_resume i,\n.shelf_message,\n.shelf_chapterHead,\n.shelf_more,\n.shelf_chapters small {\n  color: var(--dsw-alias-label-secondary);\n}\n.shelf_resume i {\n  margin-left: auto;\n  font-style: normal;\n}\n.shelf_chapterHead {\n  font-size: 11px;\n  margin: 5px 2px 1px;\n}\n.shelf_chapterHead b {\n  margin-right: auto;\n  font-weight: 500;\n}\n.shelf_chapters {\n  display: grid;\n}\n.shelf_chapters button {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  border-radius: 5px;\n  padding: 4px;\n  font-size: 13px;\n}\n.shelf_chapters small {\n  font: 10px/1 Georgia, serif;\n}\n.shelf_chapters button:hover,\n.shelf_tools button:hover,\n.shelf_chapterHead button:hover,\n.shelf_chapters button[aria-current] {\n  background: var(--dsw-alias-interactive-bg-hover);\n}\n.shelf_shelf .shelf_more,\n.shelf_message {\n  display: block;\n  font-size: 12px;\n  margin: 5px 2px;\n}\n.shelf_catalog.shelf_catalog {\n  width: min(740px, 95vw);\n  padding: 0;\n}\n.shelf_catalogInner {\n  min-height: 0;\n  overflow: auto;\n  padding: 22px clamp(14px, 3vw, 30px) 28px;\n}\n.shelf_catalogInner header {\n  justify-content: space-between;\n}\n.shelf_catalogInner header button {\n  font-size: 22px;\n}\n.shelf_kicker {\n  color: var(--dsw-alias-label-secondary);\n  letter-spacing: .12em;\n  font-size: 10px;\n}\n.shelf_catalogInner h2,\n.shelf_pathForm h2 {\n  font:\n    500 27px/1.2 Georgia,\n    \"Songti SC\",\n    SimSun,\n    serif;\n  margin: 5px 0 0;\n}\n.shelf_filters {\n  gap: 8px;\n  margin: 18px 0;\n  flex-wrap: wrap;\n}\n.shelf_filters input,\n.shelf_filters select,\n.shelf_pathForm input {\n  border: 1px solid var(--dsw-alias-border-l2);\n  border-radius: 6px;\n  padding: 7px 10px;\n  font: inherit;\n  font-size: 13px;\n  color: var(--dsw-alias-label-primary);\n  background: var(--dsw-alias-bg-layer-1);\n}\n.shelf_filters input {\n  flex: 1;\n  min-width: 120px;\n}\n.shelf_grid {\n  display: grid;\n  gap: 13px;\n  grid-template-columns: repeat(auto-fit, minmax(min(175px, 100%), 1fr));\n}\n.shelf_grid > :only-child {\n  max-width: 310px;\n}\n.shelf_pathForm {\n  display: grid;\n  gap: 12px;\n}\n.shelf_pathForm div {\n  display: flex;\n  justify-content: flex-end;\n  gap: 10px;\n}\n.shelf_pathForm button {\n  padding: 7px 12px;\n}\n.shelf_stack button:focus-visible,\n.shelf_catalogInner button:focus-visible {\n  outline: 2px solid var(--dsw-alias-state-business-primary);\n  outline-offset: 1px;\n}\n";
+    const BOOKSHELF_STYLES = "/* src/ProjectCover.module.css */\n.ProjectCover_cover {\n  display: block;\n  position: relative;\n  isolation: isolate;\n  overflow: hidden;\n  width: 100%;\n  box-sizing: border-box;\n  color: var(--print);\n  background: var(--cloth);\n  text-align: start;\n  border-radius: 3px 8px 8px 3px;\n  container-type: inline-size;\n}\n.ProjectCover_spine {\n  position: absolute;\n  inset: 0 auto 0 0;\n  width: 8px;\n  z-index: 1;\n  background:\n    linear-gradient(\n      90deg,\n      color-mix(in srgb, var(--print) 53%, var(--cloth)),\n      var(--cloth) 40%,\n      color-mix(in srgb, var(--print) 32%, var(--cloth)) 84%,\n      var(--cloth));\n  border-right: 1px solid color-mix(in srgb, var(--print) 25%, var(--cloth));\n}\n.ProjectCover_paper {\n  display: block;\n  height: 3px;\n  margin-left: 3px;\n  border-top: 1px solid color-mix(in srgb, var(--print) 35%, var(--cloth));\n  background: color-mix(in srgb, var(--cloth) 75%, var(--print));\n}\n.ProjectCover_face {\n  position: relative;\n  min-height: 109px;\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  box-sizing: border-box;\n  padding: 12px 34% 11px 21px;\n}\n.ProjectCover_title {\n  max-width: 100%;\n  overflow: hidden;\n  display: -webkit-box;\n  -webkit-box-orient: vertical;\n  -webkit-line-clamp: 2;\n  overflow-wrap: anywhere;\n  margin: auto 0 2px;\n  padding-top: 8px;\n  font:\n    500 26px/1.12 Georgia,\n    \"Songti SC\",\n    SimSun,\n    serif;\n  letter-spacing: -.035em;\n}\n.ProjectCover_imprint,\n.ProjectCover_caption,\n.ProjectCover_alias {\n  max-width: 100%;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  font-family: inherit;\n  font-size: 11px;\n  line-height: 16px;\n}\n.ProjectCover_alias {\n  margin: 1px 0 3px;\n  font-weight: 500;\n  font-size: 13px;\n}\n.ProjectCover_imprint {\n  padding-bottom: 2px;\n  border-bottom: 1px solid color-mix(in srgb, var(--print) 40%, transparent);\n}\n.ProjectCover_caption {\n  font-variant-numeric: tabular-nums;\n}\n.ProjectCover_print {\n  position: absolute;\n  inset: 0;\n  overflow: hidden;\n  isolation: isolate;\n  color: var(--print);\n}\n.ProjectCover_cover > .ProjectCover_print {\n  left: auto;\n  width: 32%;\n}\n.ProjectCover_mini {\n  position: relative;\n  display: block;\n  width: 100%;\n  height: 100%;\n  box-sizing: border-box;\n  overflow: hidden;\n  border-radius: 2px 4px 4px 2px;\n  background: var(--cloth);\n  color: var(--print);\n  box-shadow: inset 0 -2px 0 color-mix(in srgb, var(--cloth) 65%, var(--print)), 0 1px 2px #0002;\n}\n.ProjectCover_mini::after {\n  content: \"\";\n  position: absolute;\n  inset: 0 auto 1px 0;\n  width: 15%;\n  background:\n    linear-gradient(\n      90deg,\n      color-mix(in srgb, var(--print) 44%, var(--cloth)),\n      var(--cloth) 55%,\n      color-mix(in srgb, var(--print) 27%, var(--cloth)));\n}\n.ProjectCover_mini > .ProjectCover_print {\n  inset: 2% 2% 4% 13%;\n}\n.ProjectCover_print::before {\n  content: \"\";\n  position: absolute;\n  inset: 0;\n  background: var(--print);\n  opacity: .13;\n  clip-path: polygon(55% 0, 100% 0, 100% 100%, 0 100%);\n}\n.ProjectCover_print::after {\n  content: \"\";\n  position: absolute;\n  inset: auto 8% 8% 17%;\n  height: 3%;\n  border-block: 1px solid currentColor;\n  opacity: .40;\n}\n.ProjectCover_plate,\n.ProjectCover_offset {\n  position: absolute;\n  display: grid;\n  place-items: center;\n  inset: 13% 2% 14% 0;\n  transform: rotate(-9deg);\n}\n.ProjectCover_offset {\n  transform: translate(4%, 5%) rotate(-9deg);\n  opacity: .19;\n}\n.ProjectCover_print svg {\n  width: 100%;\n  height: 100%;\n}\n.ProjectCover_signal {\n  position: absolute;\n  top: 4px;\n  inset-inline-end: 4px;\n  background: var(--print);\n  color: var(--cloth);\n  border-radius: 3px;\n  padding: 1px 4px;\n  font-size: 10px;\n  line-height: 15px;\n}\n@container (max-width: 215px) {\n  .ProjectCover_face {\n    padding-inline-start: 15px;\n  }\n  .ProjectCover_title {\n    font-size: 22px;\n  }\n}\n\n/* src/project-appearance.module.css */\n.project_appearance_dialog.project_appearance_dialog {\n  width: min(840px, 100%);\n  max-height: 100%;\n  min-height: 0;\n  padding: 0;\n  gap: 0;\n}\n.project_appearance_dialogHeader,\n.project_appearance_dialogFooter {\n  flex: none;\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 15px 21px;\n}\n.project_appearance_dialogHeader {\n  justify-content: space-between;\n}\n.project_appearance_dialogHeader h2 {\n  margin: 0;\n  font-size: 18px;\n  font-weight: 500;\n  line-height: 26px;\n}\n.project_appearance_closeButton {\n  display: grid;\n  place-items: center;\n  width: 30px;\n  height: 30px;\n  padding: 0;\n  border: 0;\n  border-radius: var(--dsw-radius-md);\n  color: var(--dsw-alias-label-secondary);\n  background: transparent;\n  cursor: pointer;\n}\n.project_appearance_dialogForm {\n  display: flex;\n  flex-direction: column;\n  min-height: 0;\n}\n.project_appearance_workbench {\n  display: grid;\n  grid-template-columns: minmax(200px, 34%) minmax(0, 1fr);\n  min-height: 0;\n  overflow: auto;\n  border-block: 1px solid var(--dsw-alias-border-l2);\n}\n.project_appearance_preview {\n  box-sizing: border-box;\n  min-width: 0;\n  padding: 22px 16px;\n  border-inline-end: 1px solid var(--dsw-alias-border-l2);\n  background: var(--dsw-alias-bg-layer-1);\n}\n.project_appearance_previewEyebrow {\n  display: block;\n  margin-bottom: 15px;\n  font-size: 12px;\n  color: var(--dsw-alias-label-secondary);\n}\n.project_appearance_proof {\n  border-radius: 3px 8px 8px 3px;\n  box-shadow: 0 3px 0 -1px color-mix(in srgb, var(--print) 42%, var(--cloth)), 0 8px 15px -10px #0009;\n}\n.project_appearance_directory {\n  display: grid;\n  gap: 4px;\n  margin-top: 20px;\n  font-size: 11px;\n  line-height: 16px;\n  color: var(--dsw-alias-label-secondary);\n}\n.project_appearance_directory bdi {\n  overflow-wrap: anywhere;\n  color: var(--dsw-alias-label-primary);\n  user-select: text;\n}\n.project_appearance_editor {\n  min-width: 0;\n  padding: 20px 22px;\n}\n.project_appearance_form {\n  display: grid;\n  gap: 14px;\n}\n.project_appearance_field {\n  display: grid;\n  gap: 6px;\n  min-width: 0;\n  padding: 0;\n  margin: 0;\n  border: 0;\n}\n.project_appearance_label {\n  padding: 0;\n  color: var(--dsw-alias-label-secondary);\n  font-size: 12px;\n  line-height: 17px;\n  font-weight: 500;\n}\n.project_appearance_field > legend {\n  margin-bottom: 6px;\n}\n.project_appearance_field input {\n  box-sizing: border-box;\n  width: 100%;\n  min-height: 35px;\n  font-size: 13px;\n}\n.project_appearance_swatches {\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 4px;\n}\n.project_appearance_swatch {\n  position: relative;\n  display: grid;\n  place-items: center;\n  width: 29px;\n  height: 29px;\n  padding: 0;\n  border: 1px solid transparent;\n  border-radius: 50%;\n  color: var(--print);\n  background: transparent;\n  cursor: pointer;\n}\n.project_appearance_swatchPaint {\n  position: absolute;\n  inset: 3px;\n  border-radius: 50%;\n  background: var(--cloth);\n  box-shadow: inset 0 0 0 1px #0001;\n}\n.project_appearance_swatch svg {\n  position: relative;\n}\n.project_appearance_swatch[aria-pressed=true] {\n  border-color: var(--dsw-alias-label-primary);\n}\n.project_appearance_icons {\n  display: grid;\n  grid-template-columns: repeat(6, minmax(0, 1fr));\n  gap: 5px;\n}\n.project_appearance_iconOption {\n  min-width: 0;\n  display: grid;\n  grid-template-rows: 26px auto;\n  justify-items: center;\n  align-items: center;\n  gap: 2px;\n  padding: 4px 2px 3px;\n  border: 1px solid transparent;\n  border-radius: var(--dsw-radius-md);\n  color: var(--dsw-alias-label-secondary);\n  background: var(--dsw-alias-interactive-bg-hover);\n  cursor: pointer;\n  font: inherit;\n  font-size: 10px;\n}\n.project_appearance_iconOption > span:last-child {\n  max-width: 100%;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.project_appearance_sample {\n  width: 22px;\n  height: 26px;\n}\n.project_appearance_iconOption[aria-pressed=true],\n.project_appearance_notification[aria-pressed=true],\n.project_appearance_statusOption[aria-pressed=true] {\n  border-color: var(--dsw-alias-state-business-primary);\n  color: var(--dsw-alias-label-primary);\n}\n.project_appearance_advanced {\n  border-block-start: 1px solid var(--dsw-alias-border-l2);\n  padding-top: 9px;\n}\n.project_appearance_advanced summary {\n  color: var(--dsw-alias-label-primary);\n  cursor: pointer;\n  font-size: 12px;\n  line-height: 24px;\n}\n.project_appearance_advanced summary span {\n  color: var(--dsw-alias-label-secondary);\n  margin-inline-start: 9px;\n  font-size: 11px;\n}\n.project_appearance_advanced > fieldset {\n  margin: 9px 0 0;\n}\n.project_appearance_notifications,\n.project_appearance_statusChoices {\n  display: flex;\n  gap: 5px;\n  flex-wrap: wrap;\n}\n.project_appearance_notification,\n.project_appearance_statusOption {\n  min-height: 30px;\n  padding: 3px 8px;\n  display: flex;\n  align-items: center;\n  gap: 5px;\n  cursor: pointer;\n  font: inherit;\n  font-size: 12px;\n  color: var(--dsw-alias-label-secondary);\n  border-radius: var(--dsw-radius-sm);\n  border: 1px solid var(--dsw-alias-border-l2);\n  background: transparent;\n}\n.project_appearance_choiceDot:empty {\n  display: none;\n}\n.project_appearance_choiceDot {\n  display: inline-flex;\n}\n.project_appearance_dialogFooter {\n  justify-content: flex-end;\n}\n.project_appearance_error {\n  margin-top: 12px;\n  color: var(--dsw-alias-state-error-primary);\n  font-size: 12px;\n  overflow-wrap: anywhere;\n}\n.project_appearance_form button:focus-visible,\n.project_appearance_closeButton:focus-visible,\n.project_appearance_advanced summary:focus-visible {\n  outline: 2px solid var(--dsw-alias-state-business-primary);\n  outline-offset: 1px;\n}\n.project_appearance_form button:disabled,\n.project_appearance_closeButton:disabled {\n  cursor: default;\n  opacity: .6;\n}\n@media (hover: hover) {\n  .project_appearance_closeButton:hover,\n  .project_appearance_iconOption:hover,\n  .project_appearance_notification:hover,\n  .project_appearance_statusOption:hover {\n    background: var(--dsw-alias-interactive-bg-hover);\n  }\n}\n@media (max-width: 670px) {\n  .project_appearance_workbench {\n    grid-template-columns: minmax(0, 1fr);\n  }\n  .project_appearance_preview {\n    padding: 12px 17px;\n    display: grid;\n    grid-template-columns: minmax(140px, 1.4fr) minmax(0, 1fr);\n    align-items: center;\n    gap: 6px 14px;\n    border-inline-end: 0;\n    border-bottom: 1px solid var(--dsw-alias-border-l2);\n  }\n  .project_appearance_previewEyebrow {\n    grid-column: 2;\n    align-self: end;\n    margin: 0;\n  }\n  .project_appearance_proof {\n    grid-column: 1;\n    grid-row: 1 / 3;\n  }\n  .project_appearance_directory {\n    grid-column: 2;\n    align-self: start;\n    margin: 0;\n    max-height: 74px;\n    overflow: auto;\n  }\n  .project_appearance_editor {\n    padding: 14px 17px;\n  }\n  .project_appearance_dialogHeader,\n  .project_appearance_dialogFooter {\n    padding: 10px 16px;\n  }\n}\n@media (max-width: 420px) {\n  .project_appearance_icons {\n    grid-template-columns: repeat(4, minmax(0, 1fr));\n  }\n  .project_appearance_editor {\n    padding-inline: 12px;\n  }\n  .project_appearance_preview {\n    grid-template-columns: minmax(130px, 1.5fr) minmax(0, 1fr);\n  }\n}\n\n/* src/shelf.module.css */\n.shelf_shelf {\n  box-sizing: border-box;\n  min-width: 0;\n  max-height: 100cqh;\n  overflow: auto;\n  scrollbar-width: thin;\n  padding: 4px 12px 10px;\n  color: var(--dsw-alias-label-primary);\n}\n.shelf_shelf[data-wide=false] {\n  padding: 8px 0;\n}\n.shelf_shelf button,\n.shelf_catalogInner button,\n.shelf_pathForm button,\n.shelf_returnButton {\n  font: inherit;\n  color: inherit;\n  border: 0;\n  background: transparent;\n  cursor: pointer;\n}\n.shelf_toolbar,\n.shelf_switcher,\n.shelf_libraryButton,\n.shelf_resume,\n.shelf_chapterHead,\n.shelf_adjacent button,\n.shelf_catalogInner header,\n.shelf_pathForm header,\n.shelf_folderTools,\n.shelf_folders button,\n.shelf_returnButton {\n  display: flex;\n  align-items: center;\n}\n.shelf_toolbar {\n  gap: 5px;\n  margin: 0 0 12px;\n}\n.shelf_toolbar strong {\n  margin-right: auto;\n  font-size: 13px;\n  font-weight: 500;\n}\n.shelf_toolbar button,\n.shelf_switcher > button:not(.shelf_libraryButton),\n.shelf_chapterHead button,\n.shelf_menu,\n.shelf_rail {\n  width: 28px;\n  height: 28px;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  padding: 0;\n  border-radius: 5px;\n}\n.shelf_toolbar button:hover,\n.shelf_switcher > button:hover,\n.shelf_chapterHead button:hover {\n  background: var(--dsw-alias-interactive-bg-hover);\n}\n.shelf_volume {\n  position: relative;\n  isolation: isolate;\n  padding-bottom: 5px;\n}\n.shelf_volume::before,\n.shelf_volume::after {\n  content: \"\";\n  position: absolute;\n  border-radius: 3px 8px 8px 3px;\n  inset: 5px 4px 2px 3px;\n  background: color-mix(in srgb, var(--cloth) 62%, var(--print));\n  z-index: -1;\n}\n.shelf_volume::after {\n  inset: 7px 8px 0 5px;\n  z-index: -2;\n  background: color-mix(in srgb, var(--cloth) 33%, var(--print));\n}\n.shelf_jacket {\n  position: relative;\n  overflow: hidden;\n  border-radius: 3px 8px 8px 3px;\n  color: var(--print);\n  background: var(--cloth);\n}\n.shelf_coverButton {\n  display: block;\n  width: 100%;\n  margin: 0;\n  padding: 0;\n  border: 0;\n  border-radius: 3px 8px 8px 3px;\n  text-align: start;\n}\n.shelf_jacket:has(.shelf_resume) .shelf_coverButton [data-project-cover] {\n  border-bottom-left-radius: 0;\n  border-bottom-right-radius: 0;\n}\n.shelf_coverButton:hover {\n  filter: brightness(1.035);\n}\n.shelf_shelf .shelf_resume {\n  width: 100%;\n  gap: 7px;\n  padding: 7px 12px 8px;\n  color: var(--cloth);\n  background: var(--print);\n  font-size: 11px;\n  text-align: start;\n}\n.shelf_resume strong,\n.shelf_adjacent button > span:last-child {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.shelf_resume strong {\n  font-weight: 500;\n}\n.shelf_resume svg {\n  margin-left: auto;\n  flex: none;\n}\n.shelf_resume > span {\n  opacity: .8;\n  flex: none;\n}\n.shelf_switcher {\n  gap: 2px;\n  margin-top: 8px;\n  min-width: 0;\n}\n.shelf_libraryButton {\n  gap: 5px;\n  padding: 3px;\n  margin-right: auto;\n  font-size: 12px;\n}\n.shelf_libraryButton small,\n.shelf_chapterHead,\n.shelf_switchView,\n.shelf_message,\n.shelf_chapterOpen small {\n  color: var(--dsw-alias-label-secondary);\n}\n.shelf_libraryButton small {\n  font-size: 10px;\n}\n.shelf_adjacent {\n  display: grid;\n  grid-template-columns: repeat(2, minmax(0, 1fr));\n  gap: 8px;\n  margin-top: 5px;\n}\n.shelf_adjacent button {\n  gap: 8px;\n  min-width: 0;\n  padding: 6px 4px;\n  border-radius: 5px;\n  text-align: start;\n  background: transparent;\n  font-size: 12px;\n}\n.shelf_adjacent button:hover {\n  background: var(--dsw-alias-interactive-bg-hover);\n}\n.shelf_miniBook {\n  width: 23px;\n  height: 29px;\n  flex: none;\n}\n.shelf_chapterHead {\n  justify-content: space-between;\n  font-size: 12px;\n  margin: 13px 2px 4px;\n}\n.shelf_chapters {\n  display: grid;\n  gap: 2px;\n}\n.shelf_chapter {\n  position: relative;\n  display: flex;\n  align-items: center;\n  border-radius: 6px;\n  min-width: 0;\n}\n.shelf_chapter:hover,\n.shelf_chapter:focus-within,\n.shelf_chapter[data-current] {\n  background: var(--dsw-alias-interactive-bg-hover);\n}\n.shelf_chapterOpen {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  min-width: 0;\n  flex: 1;\n  padding: 9px 5px 9px 9px;\n  text-align: start;\n  font-size: 13px;\n}\n.shelf_chapterOpen > span {\n  flex: 1;\n  min-width: 0;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.shelf_chapterOpen small {\n  font-size: 10px;\n  white-space: nowrap;\n}\n.shelf_chapterActions {\n  display: flex;\n  flex: none;\n  opacity: 0;\n}\n.shelf_chapter:hover .shelf_chapterActions,\n.shelf_chapter:focus-within .shelf_chapterActions {\n  opacity: 1;\n}\n.shelf_chapter[data-current]::before {\n  position: absolute;\n  content: \"\";\n  height: 50%;\n  left: 0;\n  width: 2px;\n  background: var(--dsw-alias-state-business-primary);\n  border-radius: 2px;\n}\n.shelf_shelf .shelf_more {\n  display: block;\n  font-size: 11px;\n  color: var(--dsw-alias-label-secondary);\n  padding: 7px 9px;\n}\n.shelf_shelf .shelf_switchView {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  width: 100%;\n  margin-top: 14px;\n  padding: 8px 3px;\n  border-top: 1px solid var(--dsw-alias-border-l2);\n  font-size: 11px;\n  color: var(--dsw-alias-label-secondary);\n}\n.shelf_returnButton {\n  flex: none;\n  gap: 5px;\n  min-height: 32px;\n  padding: 5px 7px;\n  border-radius: 6px;\n  font-size: 11px;\n}\n.shelf_returnButton:hover {\n  background: var(--dsw-alias-interactive-bg-hover);\n}\n.shelf_message {\n  font-size: 12px;\n  line-height: 1.7;\n  padding: 9px;\n  margin: 0;\n}\n.shelf_catalog.shelf_catalog {\n  width: min(740px, 95vw);\n  padding: 0;\n}\n.shelf_catalogInner {\n  min-height: 0;\n  overflow: auto;\n  padding: 22px clamp(14px, 3vw, 30px) 28px;\n}\n.shelf_catalogInner header,\n.shelf_pathForm header {\n  justify-content: space-between;\n}\n.shelf_catalogInner h2,\n.shelf_pathForm h2 {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  font:\n    500 23px/1.2 Georgia,\n    \"Songti SC\",\n    SimSun,\n    serif;\n  margin: 0;\n}\n.shelf_catalogInner h2 small {\n  font: 12px/1.3 system-ui, sans-serif;\n  color: var(--dsw-alias-label-secondary);\n}\n.shelf_filters {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  margin: 18px 0;\n  flex-wrap: wrap;\n}\n.shelf_filters input,\n.shelf_filters select,\n.shelf_pathForm input {\n  border: 1px solid var(--dsw-alias-border-l2);\n  border-radius: 6px;\n  padding: 7px 10px;\n  font: inherit;\n  font-size: 13px;\n  color: var(--dsw-alias-label-primary);\n  background: var(--dsw-alias-bg-layer-1);\n}\n.shelf_filters input {\n  flex: 1;\n  min-width: 120px;\n}\n.shelf_grid {\n  display: grid;\n  gap: 13px;\n  grid-template-columns: repeat(auto-fit, minmax(min(175px, 100%), 1fr));\n}\n.shelf_grid > .shelf_coverButton {\n  box-shadow: 0 2px 3px #0002;\n}\n.shelf_grid > .shelf_coverButton[aria-pressed=true] {\n  outline: 2px solid var(--dsw-alias-state-business-primary);\n  outline-offset: 3px;\n}\n.shelf_grid > :only-child {\n  max-width: 310px;\n}\n.shelf_pathDialog.shelf_pathDialog {\n  width: min(600px, 95vw);\n}\n.shelf_pathForm {\n  display: grid;\n  gap: 14px;\n  min-height: 0;\n}\n.shelf_pathForm label {\n  display: grid;\n  gap: 7px;\n  font-size: 12px;\n}\n.shelf_pathForm footer {\n  display: flex;\n  justify-content: flex-end;\n  gap: 10px;\n}\n.shelf_pathForm footer button,\n.shelf_folderTools button {\n  padding: 7px 10px;\n  border-radius: 5px;\n  background: var(--dsw-alias-interactive-bg-hover);\n}\n.shelf_folders {\n  max-height: 38vh;\n  overflow: auto;\n  display: grid;\n}\n.shelf_folders button {\n  gap: 8px;\n  padding: 8px;\n  text-align: start;\n  border-radius: 5px;\n}\n.shelf_folders button:hover {\n  background: var(--dsw-alias-interactive-bg-hover);\n}\n.shelf_folders button span {\n  margin-left: auto;\n}\n.shelf_error {\n  color: var(--dsw-alias-state-error-primary);\n  font-size: 12px;\n  overflow-wrap: anywhere;\n}\n.shelf_shelf button:focus-visible,\n.shelf_catalogInner button:focus-visible,\n.shelf_pathForm button:focus-visible,\n.shelf_returnButton:focus-visible {\n  outline: 2px solid var(--dsw-alias-state-business-primary);\n  outline-offset: 1px;\n}\n@media (hover: none) {\n  .shelf_chapterActions {\n    opacity: 1;\n  }\n}\n";
     var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
@@ -555,8 +555,38 @@ function readCover(storage, id) {
 function writeCover(storage, id, value) {
   storage.setItem(prefix + id, JSON.stringify(value));
 }
-function chapterList(ids, byId, archived) {
-  return ids.filter((id) => !archived.has(id)).map((id) => byId[id]).filter((session) => session && !session.blank && session.origin !== "subagent").sort((a, b) => b.updatedAt - a.updatedAt);
+function chapterList(ids, byId, archived, { archives = false, current, pinned = [] } = {}) {
+  const pins = new Set(pinned);
+  return ids.filter((id) => archived.has(id) === archives).map((id) => byId[id]).filter((session) => session && (!session.blank || current !== void 0 && session.id === current) && session.origin !== "subagent").sort((a, b) => Number(b.id === current && b.blank) - Number(a.id === current && a.blank) || Number(pins.has(b.id)) - Number(pins.has(a.id)) || b.updatedAt - a.updatedAt);
+}
+function buildBooks(workspaces, sessions, saved, ungroupedName) {
+  const archived = new Set(workspaces.archivedSessionIds);
+  const current = Object.values(sessions.byId).find((s) => s.retainedBy?.mainView)?.id;
+  const grouped = new Set(workspaces.items.flatMap((row) => row.sessionIds));
+  const loose = sessions.ids.filter((id) => !grouped.has(id) && sessions.byId[id]?.origin !== "subagent");
+  const rows = [...workspaces.items];
+  if (loose.length) rows.push({ path: "", title: ungroupedName, sessionIds: loose });
+  return rows.map((row) => {
+    const key = row.workspaceId || "ungrouped";
+    const value = saved(key);
+    const text = (field, fallback) => typeof value[field] === "string" ? value[field] : row[field] || fallback;
+    const name = text("name", row.title);
+    return {
+      key,
+      id: row.workspaceId,
+      path: row.path,
+      folder: row.path.split(/[\\/]/).filter(Boolean).at(-1) || name,
+      name,
+      category: text("category", ""),
+      color: text("color", ""),
+      icon: text("icon", "folder"),
+      status: text("status", "developing"),
+      notifications: text("notifications", "all"),
+      memberIds: row.sessionIds,
+      allSessions: row.sessionIds.map((id) => sessions.byId[id]).filter(Boolean),
+      chapters: chapterList(row.sessionIds, sessions.byId, archived, { current, pinned: workspaces.pinnedSessionIds })
+    };
+  });
 }
 function matchBook(book, query) {
   const needle = query.trim().toLocaleLowerCase();
@@ -565,246 +595,391 @@ function matchBook(book, query) {
 
 // src/shelf.module.css
 var shelf_default = {
-  stack: "shelf_stack",
-  hostRow: "shelf_hostRow",
-  tools: "shelf_tools",
-  chapterHead: "shelf_chapterHead",
-  toggle: "shelf_toggle",
-  resume: "shelf_resume",
-  filters: "shelf_filters",
-  catalogInner: "shelf_catalogInner",
   shelf: "shelf_shelf",
+  catalogInner: "shelf_catalogInner",
   pathForm: "shelf_pathForm",
-  body: "shelf_body",
+  returnButton: "shelf_returnButton",
+  toolbar: "shelf_toolbar",
+  switcher: "shelf_switcher",
+  libraryButton: "shelf_libraryButton",
+  resume: "shelf_resume",
+  chapterHead: "shelf_chapterHead",
+  adjacent: "shelf_adjacent",
+  folderTools: "shelf_folderTools",
+  folders: "shelf_folders",
+  menu: "shelf_menu",
+  rail: "shelf_rail",
+  volume: "shelf_volume",
+  jacket: "shelf_jacket",
   coverButton: "shelf_coverButton",
-  grid: "shelf_grid",
-  chapters: "shelf_chapters",
+  switchView: "shelf_switchView",
   message: "shelf_message",
+  chapterOpen: "shelf_chapterOpen",
+  miniBook: "shelf_miniBook",
+  chapters: "shelf_chapters",
+  chapter: "shelf_chapter",
+  chapterActions: "shelf_chapterActions",
   more: "shelf_more",
   catalog: "shelf_catalog",
-  kicker: "shelf_kicker"
+  filters: "shelf_filters",
+  grid: "shelf_grid",
+  pathDialog: "shelf_pathDialog",
+  error: "shelf_error"
 };
 
 // src/client.jsx
 var import_jsx_runtime3 = require("react/jsx-runtime");
 var same = (value) => value;
-var zh = { shelf: "项目书架", library: "藏书目录", browse: "选择项目", search: "搜索书名、别名或分类", chapters: "会话章节", resume: "继续", edit: "编辑封面", new: "新会话", none: "这本书还没有章节", empty: "还没有项目", add: "添加项目", folder: "项目文件夹", next: "下一步", close: "关闭", status: "进行中", done: "已完成", unnamed: "未命名会话", count: "个会话", unmatched: "没有匹配的项目", more: "展开全部章节", less: "收起章节", activity: "待处理", unread: "有新进展", category: "全部分类", path: "输入已有文件夹的绝对路径", loading: "正在载入项目…" };
-var en = { shelf: "Project Bookshelf", library: "Book collection", browse: "Choose a project", search: "Find a title, alias or category", chapters: "Chapters", resume: "Resume", edit: "Edit cover", new: "New session", none: "No chapters yet", empty: "No projects yet", add: "Add project", folder: "Project folder", next: "Continue", close: "Close", status: "In progress", done: "Completed", unnamed: "Untitled conversation", count: "sessions", unmatched: "No matching projects", more: "Show all chapters", less: "Show fewer chapters", activity: "Needs attention", unread: "New activity", category: "All categories", path: "Enter the absolute path of an existing folder", loading: "Loading projects…" };
-function makeBook(row, saved, sessions, archived) {
-  const folder = folderTitle(row.path) || row.title;
-  const color = saved.color || row.color;
-  const icon = saved.icon || row.icon;
-  return {
-    id: row.workspaceId,
-    folder,
-    path: row.path,
-    name: saved.name || row.title || folder,
-    category: saved.category ?? row.category ?? "",
-    status: saved.status || row.status || "developing",
-    notifications: saved.notifications || row.notifications || "all",
-    color: coverColors.includes(color) ? color : automaticProjectColor(row.workspaceId),
-    icon: coverIcons.includes(icon) ? icon : "folder",
-    chapters: chapterList(row.sessionIds, sessions.byId, archived)
-  };
-}
-function Cover({ book, copy, signal }) {
-  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-    ProjectCover,
-    {
-      ...book,
-      imprint: book.category || (book.status === "completed" ? copy.done : copy.status),
-      caption: book.chapters.length + " " + copy.count,
-      signal
-    }
-  );
+var zh = { shelf: "项目书架", native: "原版工作区", bookshelf: "书架模式", library: "全部项目", browse: "选择项目", search: "搜索项目、会话或分类", chapters: "会话", resume: "继续", edit: "编辑封面", new: "新会话", none: "这个项目还没有会话", empty: "添加文件夹，开始你的第一本书", add: "添加项目", close: "关闭", status: "开发中", done: "已完成", unnamed: "未命名会话", blank: "新会话", ungrouped: "未分组", count: "个会话", unmatched: "没有匹配的项目或会话", more: "展开其余会话", less: "收起会话", activity: "待处理", running: "进行中", unread: "有新进展", category: "全部分类", path: "项目文件夹路径", loading: "正在载入项目…", archived: "已归档", showArchived: "查看归档", hideArchived: "返回会话", restore: "恢复会话", menu: "会话操作", chooseFolder: "浏览文件夹", useFolder: "使用此文件夹", browseFolder: "选择项目文件夹", parent: "上一级", storage: "无法保存视图设置，请检查浏览器存储权限" };
+var en = { shelf: "Project Bookshelf", native: "Original workspace", bookshelf: "Bookshelf mode", library: "All projects", browse: "Choose a project", search: "Search projects, conversations or categories", chapters: "Conversations", resume: "Resume", edit: "Edit cover", new: "New session", none: "No conversations yet", empty: "Add a folder to start your first book", add: "Add project", close: "Close", status: "In progress", done: "Completed", unnamed: "Untitled conversation", blank: "New session", ungrouped: "Ungrouped", count: "sessions", unmatched: "No matching projects or conversations", more: "Show remaining conversations", less: "Show fewer", activity: "Needs attention", running: "Running", unread: "New activity", category: "All categories", path: "Project folder path", loading: "Loading projects…", archived: "Archived", showArchived: "View archives", hideArchived: "Back to conversations", restore: "Restore conversation", menu: "Conversation actions", chooseFolder: "Browse folders", useFolder: "Use this folder", browseFolder: "Choose project folder", parent: "Parent folder", storage: "Cannot save view preference. Check browser storage permissions." };
+function useCopy(actions) {
+  const language = (0, import_react2.useSyncExternalStore)(actions.subscribeLocale, actions.language);
+  return [language.toLowerCase().startsWith("zh") ? zh : en, language];
 }
 function NewChapter({ book, actions, useWorkspaceAccess, copy }) {
   const allowed = useWorkspaceAccess(book.id, "session/create");
-  return allowed && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", "aria-label": copy.new, title: copy.new, onClick: () => actions.start(book.id), children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_dsh_client_ui_primitives3.IconNewChatOutlineRegular, { size: 15 }) });
+  return allowed && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", title: copy.new, "aria-label": copy.new, onClick: () => actions.start(book.id), children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_dsh_client_ui_primitives3.IconNewChatOutlineRegular, { size: 16 }) });
 }
-function Shelf({ children, wide, useWorkspaces, useSessions, useSessionStatus, useWorkspaceAccess, useRemoteAccess, actions }) {
+function Chapter({ session, archived, current, copy, actions, useContextMenu, renderFactorySlot }) {
+  const { getTriggerProps } = useContextMenu();
+  const [error, setError] = (0, import_react2.useState)("");
+  const title = session.blank ? copy.blank : session.title || copy.unnamed;
+  const target = session.blank ? void 0 : { kind: "session", value: { sessionId: session.id, displayTitle: title } };
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: shelf_default.chapter, "data-current": current || void 0, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
+      "button",
+      {
+        type: "button",
+        className: shelf_default.chapterOpen,
+        "aria-current": current || void 0,
+        ...getTriggerProps(target),
+        title,
+        onClick: () => {
+          if (!archived) actions.open(session.id);
+        },
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: title }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("small", { children: session.pending ? copy.activity : session.running ? copy.running : session.unread ? "●" : archived ? copy.archived : "" })
+        ]
+      }
+    ),
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: shelf_default.chapterActions, children: [
+      archived && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", title: copy.restore, "aria-label": copy.restore, onClick: () => actions.restore(session.id).catch((e) => setError(e.message)), children: "↶" }),
+      target && renderFactorySlot("contextMenu.button", { target, label: copy.menu, className: shelf_default.menu })
+    ] }),
+    error && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { role: "alert", className: shelf_default.error, children: error })
+  ] });
+}
+function FolderBrowser({ actions, copy, close, choose }) {
+  const [listing, setListing] = (0, import_react2.useState)(null);
+  const [path, setPath] = (0, import_react2.useState)("");
+  const [error, setError] = (0, import_react2.useState)("");
+  const generation = (0, import_react2.useRef)(0);
+  async function browse(next) {
+    const request = ++generation.current;
+    setError("");
+    try {
+      const result = await actions.listDirectory(next);
+      if (request === generation.current) {
+        setListing(result);
+        setPath(result.path);
+      }
+    } catch (e) {
+      if (request === generation.current) setError(e.message);
+    }
+  }
+  (0, import_react2.useEffect)(() => {
+    void browse();
+    return () => {
+      generation.current++;
+    };
+  }, []);
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_dsh_client_ui_primitives3.Modal, { open: true, headless: true, title: copy.browseFolder, onClose: close, className: shelf_default.pathDialog, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("form", { className: shelf_default.pathForm, onSubmit: (e) => {
+    e.preventDefault();
+    if (path.trim()) choose(path.trim());
+  }, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("header", { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h2", { children: copy.browseFolder }),
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", "aria-label": copy.close, onClick: close, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_dsh_client_ui_primitives3.IconCloseOutlineRegular, { size: 16 }) })
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("label", { children: [
+      copy.path,
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("input", { "data-modal-autofocus": true, value: path, required: true, onChange: (e) => setPath(e.target.value) })
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: shelf_default.folderTools, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", onClick: () => void browse(path), children: copy.chooseFolder }),
+      listing?.crumbs?.length > 1 && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", onClick: () => void browse(listing.crumbs.at(-2).path), children: copy.parent })
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: shelf_default.folders, children: listing?.entries?.filter((entry) => !entry.hidden).map((entry) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("button", { type: "button", onClick: () => void browse(entry.path), children: [
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_dsh_client_ui_primitives3.IconFolderOpenRegular, { size: 16 }),
+      entry.name,
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "›" })
+    ] }, entry.path)) }),
+    error && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { role: "alert", className: shelf_default.error, children: error }),
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("footer", { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", onClick: close, children: copy.close }),
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "submit", children: copy.useFolder })
+    ] })
+  ] }) });
+}
+function Shelf({ wide, expandSidebar, useWorkspaces, useSessions, useSessionStatus, useWorkspaceAccess, useRemoteAccess, useSectionScroller, useContextMenu, renderFactorySlot, actions }) {
   const workspaces = useWorkspaces(same);
   const sessions = useSessions(same);
   const statuses = useSessionStatus(same);
-  const language = (0, import_react2.useSyncExternalStore)(actions.subscribeLocale, actions.language);
-  const chinese = language.toLowerCase().startsWith("zh");
-  const copy = chinese ? zh : en;
-  const [open, setOpen] = (0, import_react2.useState)(true);
+  const [copy, language] = useCopy(actions);
+  const { bindScrollerRef } = useSectionScroller();
   const [catalog, setCatalog] = (0, import_react2.useState)(false);
   const [query, setQuery] = (0, import_react2.useState)("");
   const [category, setCategory] = (0, import_react2.useState)("");
   const [selected, select] = (0, import_react2.useState)("");
   const [all, showAll] = (0, import_react2.useState)(false);
+  const [archives, showArchives] = (0, import_react2.useState)(false);
   const [edit, setEdit] = (0, import_react2.useState)(null);
-  const [path, setPath] = (0, import_react2.useState)(null);
+  const [picking, setPicking] = (0, import_react2.useState)(false);
   const [version, refresh] = (0, import_react2.useState)(0);
+  const [error, setError] = (0, import_react2.useState)("");
   const created = (0, import_react2.useRef)(null);
-  const id = (0, import_react2.useId)();
+  const previousCurrent = (0, import_react2.useRef)();
+  const current = Object.values(sessions.byId).find((s) => s.retainedBy?.mainView)?.id;
   (0, import_react2.useEffect)(() => {
     const update = (e) => {
-      if (e.key === null || e.key.startsWith("dsh.project-bookshelf.")) refresh((v) => v + 1);
+      if (e.key === null || e.key.startsWith("dsh.project-bookshelf.v1.")) refresh((v) => v + 1);
     };
     window.addEventListener("storage", update);
     return () => window.removeEventListener("storage", update);
   }, []);
-  const books = (0, import_react2.useMemo)(() => {
-    const archived = new Set(workspaces.archivedSessionIds);
-    return workspaces.items.map((row) => makeBook(row, readCover(window.localStorage, row.workspaceId), sessions, archived));
-  }, [workspaces, sessions, version]);
-  const current = Object.values(sessions.byId).find((s) => s.retainedBy?.mainView)?.id;
-  const book = books.find((b) => b.id === selected) || books.find((b) => b.chapters.some((s) => s.id === current)) || books[0];
+  const books = (0, import_react2.useMemo)(() => buildBooks(workspaces, sessions, (id) => readCover(window.localStorage, id), copy.ungrouped).map((b) => ({
+    ...b,
+    color: coverColors.includes(b.color) ? b.color : automaticProjectColor(b.key),
+    icon: coverIcons.includes(b.icon) ? b.icon : "folder"
+  })), [workspaces, sessions, version, copy]);
+  (0, import_react2.useEffect)(() => {
+    if (!current) return;
+    const previous = previousCurrent.current;
+    previousCurrent.current = current;
+    if (previous === void 0 && selected) return;
+    const owner = books.find((b) => b.memberIds.includes(current));
+    if (owner) {
+      select(owner.key);
+      showAll(false);
+    }
+  }, [current]);
+  const book = books.find((b) => b.key === selected) || books.find((b) => b.memberIds.includes(current)) || books[0];
   const canCreate = useRemoteAccess("workspace/create");
   const categories = [...new Set(books.map((b) => b.category).filter(Boolean))];
-  const filtered = books.filter((b) => (!category || category === b.category) && matchBook(b, query));
+  const needle = query.trim().toLocaleLowerCase();
+  const filtered = books.filter((b) => (!category || category === b.category) && (matchBook(b, query) || b.allSessions.some((s) => s.title?.toLocaleLowerCase().includes(needle))));
   const openCatalog = () => {
     setQuery("");
     setCategory("");
     setCatalog(true);
   };
   const choose = (b) => {
-    select(b.id);
+    select(b.key);
     showAll(false);
+    showArchives(false);
     setCatalog(false);
-    setOpen(true);
+    setQuery("");
   };
-  const first = book?.chapters[0];
+  const bookSessions = book ? chapterList(book.memberIds, sessions.byId, new Set(workspaces.archivedSessionIds), { archives, current, pinned: workspaces.pinnedSessionIds }) : [];
+  const first = book?.chapters.filter((s) => !s.blank).reduce((latest, s) => !latest || s.updatedAt > latest.updatedAt ? s : latest, void 0);
   const signal = book && book.notifications !== "none" && (book.chapters.some((s) => statuses.get(s.id)?.pendingInteraction) ? copy.activity : book.notifications === "all" && book.chapters.some((s) => statuses.get(s.id)?.completionUnread) ? copy.unread : void 0);
-  function saveDraft(value) {
-    return (async () => {
-      let projectId = edit.id;
-      if (!projectId) {
-        created.current ??= await actions.create(edit.path, value.name);
-        projectId = created.current.workspaceId;
-      }
-      writeCover(window.localStorage, projectId, value);
-      select(projectId);
-      refresh((v) => v + 1);
-    })();
+  const adjacent = books.filter((b) => b.key !== book?.key).slice(0, 2);
+  const visible = (all ? bookSessions : bookSessions.slice(0, 12)).map((s) => ({ ...s, pending: statuses.get(s.id)?.pendingInteraction, running: statuses.get(s.id)?.running, unread: statuses.get(s.id)?.completionUnread }));
+  function cover(b) {
+    return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ProjectCover, { ...b, imprint: b.category || (b.id ? b.status === "completed" ? copy.done : copy.status : ""), caption: b.chapters.filter((s) => !s.blank).length + " " + copy.count, signal: b.key === book?.key ? signal : void 0 });
   }
-  function draftProject(folderPath) {
-    created.current = null;
-    setPath(null);
-    setCatalog(false);
-    setEdit({ path: folderPath, name: "", category: "", icon: "folder", color: automaticProjectColor(folderPath), notifications: "all", status: "developing" });
-  }
-  const toggle = /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
-    "button",
-    {
-      type: "button",
-      className: shelf_default.toggle,
-      title: copy.shelf,
-      "aria-label": copy.shelf,
-      "aria-expanded": wide ? open : catalog,
-      onClick: () => wide ? setOpen(!open) : openCatalog(),
-      children: [
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_dsh_client_ui_primitives3.IconLayersOutlineRegular, { size: 17 }),
-        wide && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(import_jsx_runtime3.Fragment, { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("b", { children: copy.shelf }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: open ? "⌃" : "⌄" })
-        ] })
-      ]
+  async function save(value) {
+    let project = edit;
+    if (!project.id) {
+      created.current ??= await actions.create(project.path, value.name);
+      project = { ...project, id: created.current.workspaceId };
     }
-  );
+    await actions.save(project.id, value);
+    select(project.id);
+    refresh((v) => v + 1);
+  }
+  function draft(path) {
+    created.current = null;
+    setPicking(false);
+    setEdit({ path, name: "", category: "", icon: "folder", color: automaticProjectColor(path), notifications: "all", status: "developing" });
+  }
   return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(import_jsx_runtime3.Fragment, { children: [
-    wide ? /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: shelf_default.stack, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: shelf_default.hostRow, children }),
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("section", { className: shelf_default.shelf, "aria-label": copy.shelf, "data-bookshelf": "", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("header", { className: shelf_default.tools, children: [
-          toggle,
-          canCreate && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", "aria-label": copy.add, title: copy.add, onClick: () => setPath(""), children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_dsh_client_ui_primitives3.IconFolderOpenRegular, { size: 16 }) })
-        ] }),
-        open && (book ? /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: shelf_default.body, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", className: shelf_default.coverButton, title: copy.browse, "aria-label": copy.browse, onClick: openCatalog, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Cover, { book, copy, signal }) }),
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("section", { ref: wide ? bindScrollerRef : void 0, className: shelf_default.shelf, "data-bookshelf": "", "data-wide": wide, children: wide ? /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(import_jsx_runtime3.Fragment, { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("header", { className: shelf_default.toolbar, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("strong", { children: copy.shelf }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", "aria-label": copy.search, title: copy.search, onClick: openCatalog, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_dsh_client_ui_primitives3.IconSearchOutlineRegular, { size: 16 }) }),
+        canCreate && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", "aria-label": copy.add, title: copy.add, onClick: () => setPicking(true), children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_dsh_client_ui_primitives3.IconFolderOpenRegular, { size: 16 }) })
+      ] }),
+      book ? /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(import_jsx_runtime3.Fragment, { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: shelf_default.volume, style: coverInk(book.color), children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: shelf_default.jacket, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", className: shelf_default.coverButton, title: copy.browse, "aria-label": copy.browse, onClick: openCatalog, children: cover(book) }),
           first && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("button", { type: "button", className: shelf_default.resume, onClick: () => actions.open(first.id), children: [
             /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: copy.resume }),
             /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("strong", { children: first.title || copy.unnamed }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("i", { children: "›" })
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_dsh_client_ui_primitives3.IconChevronRightOutlineRegular, { size: 14 })
+          ] })
+        ] }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: shelf_default.switcher, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("button", { type: "button", className: shelf_default.libraryButton, onClick: openCatalog, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_dsh_client_ui_primitives3.IconLayersOutlineRegular, { size: 15 }),
+            copy.library,
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("small", { children: books.filter((b) => b.id).length }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_dsh_client_ui_primitives3.IconChevronRightOutlineRegular, { size: 12 })
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: shelf_default.chapterHead, children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("b", { children: copy.chapters }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", title: copy.edit, "aria-label": copy.edit, onClick: () => setEdit(book), children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_dsh_client_ui_primitives3.IconListPenOutlineRegular, { size: 15 }) }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(NewChapter, { book, actions, useWorkspaceAccess, copy })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: shelf_default.chapters, children: (all ? book.chapters : book.chapters.slice(0, 3)).map((s, index) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("button", { type: "button", "aria-current": s.id === current || void 0, onClick: () => actions.open(s.id), children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("small", { children: String(index + 1).padStart(2, "0") }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: s.title || copy.unnamed })
-          ] }, s.id)) }),
-          !first && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("small", { className: shelf_default.message, children: copy.none }),
-          book.chapters.length > 3 && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", className: shelf_default.more, onClick: () => showAll(!all), children: all ? copy.less : copy.more })
-        ] }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { className: shelf_default.message, children: workspaces.phase === "pending" ? copy.loading : copy.empty }))
-      ] })
-    ] }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(import_jsx_runtime3.Fragment, { children: [
-      children,
-      toggle
-    ] }),
-    catalog && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_dsh_client_ui_primitives3.Modal, { open: true, headless: true, title: copy.library, onClose: () => setCatalog(false), className: shelf_default.catalog, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: shelf_default.catalogInner, "data-bookshelf-catalog": "", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("header", { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: shelf_default.kicker, children: "PROJECT BOOKSHELF" }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h2", { children: copy.library })
+          book.id && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(import_jsx_runtime3.Fragment, { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(NewChapter, { book, actions, useWorkspaceAccess, copy }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", title: copy.edit, "aria-label": copy.edit, onClick: () => setEdit(book), children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_dsh_client_ui_primitives3.IconListPenOutlineRegular, { size: 16 }) })
+          ] })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", "aria-label": copy.close, onClick: () => setCatalog(false), children: "×" })
+        adjacent.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: shelf_default.adjacent, children: adjacent.map((b) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("button", { type: "button", onClick: () => choose(b), style: coverInk(b.color), title: b.name, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: shelf_default.miniBook, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(MiniCover, { icon: b.icon }) }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: b.name })
+        ] }, b.key)) }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: shelf_default.chapterHead, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: archives ? copy.archived : copy.chapters }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", title: archives ? copy.hideArchived : copy.showArchived, "aria-label": archives ? copy.hideArchived : copy.showArchived, onClick: () => {
+            showArchives(!archives);
+            showAll(false);
+          }, children: archives ? "↶" : "▤" })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: shelf_default.chapters, children: visible.map((s) => /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Chapter, { session: s, archived: archives, current: s.id === current, ...{ copy, actions, useContextMenu, renderFactorySlot } }, s.id)) }),
+        !bookSessions.length && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { className: shelf_default.message, children: archives ? copy.archived + " · 0" : copy.none }),
+        bookSessions.length > 12 && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", className: shelf_default.more, onClick: () => showAll(!all), children: all ? copy.less : copy.more + " " + (bookSessions.length - 12) })
+      ] }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { className: shelf_default.message, children: workspaces.phase === "pending" ? copy.loading : copy.empty }),
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("button", { type: "button", className: shelf_default.switchView, onClick: () => {
+        try {
+          actions.mode.set(true);
+        } catch {
+          setError(copy.storage);
+        }
+      }, children: [
+        copy.native,
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_dsh_client_ui_primitives3.IconChevronRightOutlineRegular, { size: 12 })
+      ] }),
+      error && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { role: "alert", className: shelf_default.error, children: error })
+    ] }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", className: shelf_default.rail, "aria-label": copy.shelf, title: copy.shelf, onClick: () => {
+      expandSidebar();
+      openCatalog();
+    }, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_dsh_client_ui_primitives3.IconLayersOutlineRegular, { size: 18 }) }) }),
+    catalog && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_dsh_client_ui_primitives3.Modal, { open: true, headless: true, title: copy.library, onClose: () => {
+      setCatalog(false);
+      setQuery("");
+    }, className: shelf_default.catalog, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: shelf_default.catalogInner, "data-bookshelf-catalog": "", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("header", { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("h2", { children: [
+          copy.library,
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("small", { children: books.filter((b) => b.id).length })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", "aria-label": copy.close, onClick: () => {
+          setCatalog(false);
+          setQuery("");
+        }, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_dsh_client_ui_primitives3.IconCloseOutlineRegular, { size: 18 }) })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: shelf_default.filters, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("input", { "data-modal-autofocus": true, type: "search", "aria-label": copy.search, placeholder: copy.search, value: query, onChange: (e) => setQuery(e.target.value) }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+          "input",
+          {
+            "data-modal-autofocus": true,
+            type: "search",
+            "aria-label": copy.search,
+            placeholder: copy.search,
+            value: query,
+            onChange: (e) => setQuery(e.target.value),
+            onKeyDown: (e) => {
+              if (e.key === "Enter" && !e.nativeEvent.isComposing && filtered[0]) choose(filtered[0]);
+            }
+          }
+        ),
         categories.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("select", { "aria-label": copy.category, value: category, onChange: (e) => setCategory(e.target.value), children: [
           /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("option", { value: "", children: copy.category }),
           categories.map((c) => /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("option", { children: c }, c))
         ] })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: shelf_default.grid, children: filtered.map((b) => /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", className: shelf_default.coverButton, onClick: () => choose(b), "aria-label": b.name, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Cover, { book: b, copy }) }, b.id)) }),
-      !filtered.length && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { className: shelf_default.message, children: books.length ? copy.unmatched : copy.empty })
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: shelf_default.grid, children: filtered.map((b) => /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", className: shelf_default.coverButton, "aria-pressed": b.key === book?.key, onClick: () => choose(b), "aria-label": b.name, children: cover(b) }, b.key)) }),
+      !filtered.length && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { className: shelf_default.message, children: copy.unmatched })
     ] }) }),
-    path !== null && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_dsh_client_ui_primitives3.Modal, { open: true, headless: true, title: copy.add, onClose: () => setPath(null), className: shelf_default.pathDialog, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("form", { className: shelf_default.pathForm, onSubmit: (e) => {
-      e.preventDefault();
-      if (path.trim()) draftProject(path.trim());
-    }, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h2", { children: copy.add }),
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("label", { htmlFor: id, children: copy.path }),
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("input", { id, "data-modal-autofocus": true, value: path, required: true, onChange: (e) => setPath(e.target.value) }),
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", onClick: () => setPath(null), children: copy.close }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "submit", children: copy.next })
-      ] })
-    ] }) }),
-    edit && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-      ProjectAppearanceDialog,
-      {
-        open: true,
-        mode: edit.id ? "edit" : "create",
-        language: chinese ? "zh" : "en",
-        path: edit.path,
-        defaultName: edit.folder || folderTitle(edit.path),
-        initialValue: edit,
-        categories,
-        onClose: () => setEdit(null),
-        onSubmit: (value) => saveDraft({ name: value.name, color: value.color, icon: value.icon, category: value.category, notifications: value.notifications, status: value.status })
-      }
-    )
+    picking && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(FolderBrowser, { actions, copy, close: () => setPicking(false), choose: draft }),
+    edit && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ProjectAppearanceDialog, { open: true, mode: edit.id ? "edit" : "create", language, path: edit.path, defaultName: edit.folder || folderTitle(edit.path), initialValue: edit, categories, onClose: () => setEdit(null), onSubmit: save })
   ] });
 }
-var inject = ["slots", "uiWorkspace", "workspaces", "uiSession", "remoteAccess", "locale"];
+function ModeButton({ children, wide, actions }) {
+  const native = (0, import_react2.useSyncExternalStore)(actions.mode.subscribe, actions.mode.get);
+  const [copy] = useCopy(actions);
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(import_jsx_runtime3.Fragment, { children: [
+    children,
+    native && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("button", { type: "button", className: shelf_default.returnButton, title: copy.bookshelf, "aria-label": copy.bookshelf, onClick: () => actions.mode.set(false), children: [
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_dsh_client_ui_primitives3.IconLayersOutlineRegular, { size: 16 }),
+      wide && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: copy.bookshelf })
+    ] })
+  ] });
+}
+var inject = ["slots", "uiWorkspace", "workspaces", "uiSession", "remoteAccess", "locale", "contextMenus"];
 function apply(ctx) {
+  let native = localStorage.getItem("dsh.project-bookshelf.native") === "true";
+  const listeners = /* @__PURE__ */ new Set();
+  const mode = {
+    get: () => native,
+    subscribe: (listener) => {
+      listeners.add(listener);
+      return () => listeners.delete(listener);
+    },
+    set: (value) => {
+      localStorage.setItem("dsh.project-bookshelf.native", String(value));
+      native = value;
+      for (const listener of [...listeners]) listener();
+    }
+  };
   ctx.effect(() => {
     const style = document.createElement("style");
     style.dataset.projectBookshelf = "";
     style.textContent = BOOKSHELF_STYLES;
     document.head.append(style);
-    return () => style.remove();
+    const change = (e) => {
+      if (e.key === "dsh.project-bookshelf.native" || e.key === null) {
+        native = e.newValue === "true";
+        for (const listener of [...listeners]) listener();
+      }
+    };
+    window.addEventListener("storage", change);
+    return () => {
+      style.remove();
+      window.removeEventListener("storage", change);
+    };
   });
   const actions = {
+    mode,
     subscribeLocale: (listener) => ctx.locale.subscribe(listener),
     language: () => ctx.locale.getLocale().active,
     open: (id) => ctx.uiWorkspace.openSession(id),
     start: (id) => ctx.uiWorkspace.startSession(id),
-    create: (path, title) => ctx.workspaces.create({ path, title })
+    restore: (id) => ctx.uiWorkspace.unarchiveSession(id),
+    create: (path, title) => ctx.workspaces.create({ path, title }),
+    listDirectory: (path) => ctx.uiWorkspace.listDirectory(path),
+    save: async (id, value) => {
+      if (typeof ctx.workspaces.updateMetadata === "function") {
+        const { name, ...metadata } = value;
+        await ctx.workspaces.updateMetadata(id, { ...metadata, title: name });
+      } else if (value.name) await ctx.workspaces.rename(id, value.name);
+      writeCover(localStorage, id, value);
+    }
   };
-  ctx.slots.inject("sidebar.session.action", () => ctx.slots.register({
-    name: "sidebar.session.action",
-    id: "project-bookshelf",
-    order: 120,
-    inject: () => ({ actions })
-  }, Shelf));
+  ctx.slots.inject("sidebar.workspaces", () => {
+    let release;
+    const sync = () => {
+      if (native) {
+        release?.();
+        release = void 0;
+      } else if (!release) release = ctx.slots.register({ name: "sidebar.workspaces", priority: -100, inject: () => ({ actions }) }, Shelf);
+    };
+    sync();
+    const unsubscribe = mode.subscribe(sync);
+    return () => {
+      unsubscribe();
+      release?.();
+    };
+  });
+  ctx.slots.inject("sidebar.session.action", () => ctx.slots.register({ name: "sidebar.session.action", id: "project-bookshelf.mode", order: 120, inject: () => ({ actions }) }, ModeButton));
 }
 
     return module.exports;
