@@ -24,6 +24,8 @@ dsh plugin --profile web add https://github.com/zhishengplus/dsh-project-bookshe
 
 The plugin replaces the workspace browsing area with a bookshelf by default. Your existing projects become books and their conversations become chapters. Select the featured cover to search by folder, alias, category or conversation title. Pick a chapter to reopen it.
 
+The screenshots use fictional projects. Your installed bookshelf reads the project names, conversation titles and messages from your own DSH instance.
+
 Select **Original workspace** at the bottom to use the native list. Select **Bookshelf mode** beside New session to return. Both views share the same projects, conversations, pins and archives. Your view preference survives reloads.
 
 ![Switching between the bookshelf and the native workspace](docs/media/switch.gif)
