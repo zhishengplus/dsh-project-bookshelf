@@ -7,17 +7,25 @@ import {
 import { ProjectCover, MiniCover, coverInk, folderTitle, coverColors, coverIcons } from './ProjectCover'
 import { ProjectAppearanceDialog } from './project-appearance'
 import { automaticProjectColor } from './project-identity'
-import { buildBooks, chapterList, matchBook, readCover, writeCover } from './library.mjs'
+import { buildBooks, chapterList, matchBook, readCover, writeCover, bookActivity } from './library.mjs'
 import css from './shelf.module.css'
 import {watchNewProjects, pickProjectDirectory} from './project-flow.mjs'
 
 const same = value => value
-const zh = { shelf:'项目书架', native:'原版工作区', bookshelf:'书架模式', library:'全部项目', browse:'选择项目', search:'搜索项目、会话或分类', chapters:'会话', resume:'继续', edit:'编辑封面', new:'新会话', none:'这个项目还没有会话', empty:'添加文件夹，开始你的第一本书', add:'添加项目', addHint:'选择文件夹，设计封面', close:'关闭', status:'开发中', done:'已完成', unnamed:'未命名会话', blank:'新会话', ungrouped:'未分组', count:'个会话', unmatched:'没有匹配的项目或会话', more:'展开其余会话', less:'收起会话', activity:'待处理', running:'进行中', unread:'有新进展', category:'全部分类', path:'项目文件夹路径', loading:'正在载入项目…', archived:'已归档', showArchived:'查看归档', hideArchived:'返回会话', restore:'恢复会话', menu:'会话操作', chooseFolder:'浏览文件夹', useFolder:'使用此文件夹', browseFolder:'选择项目文件夹', parent:'上一级', storage:'无法保存视图设置，请检查浏览器存储权限' }
-const en = { shelf:'Project Bookshelf', native:'Original workspace', bookshelf:'Bookshelf mode', library:'All projects', browse:'Choose a project', search:'Search projects, conversations or categories', chapters:'Conversations', resume:'Resume', edit:'Edit cover', new:'New session', none:'No conversations yet', empty:'Add a folder to start your first book', add:'Add project', addHint:'Choose a folder and design its cover', close:'Close', status:'In progress', done:'Completed', unnamed:'Untitled conversation', blank:'New session', ungrouped:'Ungrouped', count:'sessions', unmatched:'No matching projects or conversations', more:'Show remaining conversations', less:'Show fewer', activity:'Needs attention', running:'Running', unread:'New activity', category:'All categories', path:'Project folder path', loading:'Loading projects…', archived:'Archived', showArchived:'View archives', hideArchived:'Back to conversations', restore:'Restore conversation', menu:'Conversation actions', chooseFolder:'Browse folders', useFolder:'Use this folder', browseFolder:'Choose project folder', parent:'Parent folder', storage:'Cannot save view preference. Check browser storage permissions.' }
+const zh = { shelf:'项目书架', native:'原版工作区', bookshelf:'书架模式', library:'全部项目', browse:'选择项目', search:'搜索项目、会话或分类', chapters:'会话', resume:'继续', edit:'编辑封面', new:'新会话', none:'这个项目还没有会话', empty:'添加文件夹，开始你的第一本书', add:'添加项目', addHint:'选择文件夹，设计封面', close:'关闭', status:'开发中', done:'已完成', unnamed:'未命名会话', blank:'新会话', ungrouped:'未分组', count:'个会话', unmatched:'没有匹配的项目或会话', more:'展开其余会话', less:'收起会话', activity:'待处理', running:'工作中', runningCount:n=>n+' 段对话工作中', waitingCount:n=>n+' 段待处理', unread:'有新进展', category:'全部分类', path:'项目文件夹路径', loading:'正在载入项目…', archived:'已归档', showArchived:'查看归档', hideArchived:'返回会话', restore:'恢复会话', menu:'会话操作', chooseFolder:'浏览文件夹', useFolder:'使用此文件夹', browseFolder:'选择项目文件夹', parent:'上一级', storage:'无法保存视图设置，请检查浏览器存储权限' }
+const en = { shelf:'Project Bookshelf', native:'Original workspace', bookshelf:'Bookshelf mode', library:'All projects', browse:'Choose a project', search:'Search projects, conversations or categories', chapters:'Conversations', resume:'Resume', edit:'Edit cover', new:'New session', none:'No conversations yet', empty:'Add a folder to start your first book', add:'Add project', addHint:'Choose a folder and design its cover', close:'Close', status:'In progress', done:'Completed', unnamed:'Untitled conversation', blank:'New session', ungrouped:'Ungrouped', count:'sessions', unmatched:'No matching projects or conversations', more:'Show remaining conversations', less:'Show fewer', activity:'Needs attention', running:'Working', runningCount:n=>n+' working', waitingCount:n=>n+' awaiting you', unread:'New activity', category:'All categories', path:'Project folder path', loading:'Loading projects…', archived:'Archived', showArchived:'View archives', hideArchived:'Back to conversations', restore:'Restore conversation', menu:'Conversation actions', chooseFolder:'Browse folders', useFolder:'Use this folder', browseFolder:'Choose project folder', parent:'Parent folder', storage:'Cannot save view preference. Check browser storage permissions.' }
 
 function useCopy(actions) {
   const language = useSyncExternalStore(actions.subscribeLocale, actions.language)
   return [language.toLowerCase().startsWith('zh') ? zh : en, language]
+}
+function Activity({activity,copy,compact=false}) {
+  if(!activity.running && !activity.waiting)return null
+  const label=[activity.running && copy.runningCount(activity.running),activity.waiting && copy.waitingCount(activity.waiting)].filter(Boolean).join(' · ')
+  return <span className={css.activity} role="status" aria-label={label} title={label} data-project-activity="" data-running={activity.running} data-waiting={activity.waiting}>
+    {activity.running>0 && <span><span className={css.spinner} aria-hidden="true"/>{compact ? activity.running : copy.runningCount(activity.running)}</span>}
+    {activity.waiting>0 && <span><span className={css.waitingDot} aria-hidden="true"/>{compact ? activity.waiting : copy.waitingCount(activity.waiting)}</span>}
+  </span>
 }
 function NewChapter({book, actions, useWorkspaceAccess, copy}) {
   const allowed = useWorkspaceAccess(book.id, 'session/create')
@@ -31,7 +39,7 @@ function Chapter({session, archived, current, copy, actions, useContextMenu, ren
   return <div className={css.chapter} data-current={current || undefined}>
     <button type="button" className={css.chapterOpen} aria-current={current || undefined}
       {...getTriggerProps(target)} title={title} onClick={() => { if(!archived) actions.open(session.id) }}>
-      <span>{title}</span><small>{session.pending ? copy.activity : session.running ? copy.running : session.unread ? '●' : archived ? copy.archived : ''}</small>
+      <span>{title}</span><small className={css.chapterStatus}>{session.pending ? <><span className={css.waitingDot} aria-hidden="true"/>{copy.activity}</> : session.running ? <><span className={css.spinner} aria-hidden="true"/>{copy.running}</> : session.unread ? '●' : archived ? copy.archived : ''}</small>
     </button>
     <div className={css.chapterActions}>
       {archived && <button type="button" title={copy.restore} aria-label={copy.restore} onClick={() => actions.restore(session.id).catch(e=>setError(e.message))}>↶</button>}
@@ -122,11 +130,12 @@ function Shelf({wide, expandSidebar, useWorkspaces, useSessions, useSessionStatu
   const choose = b=>{select(b.key);showAll(false);showArchives(false);setCatalog(false);setQuery('')}
   const bookSessions = book ? chapterList(book.memberIds,sessions.byId,new Set(workspaces.archivedSessionIds),{archives,current,pinned:workspaces.pinnedSessionIds}) : []
   const first = book?.chapters.filter(s=>!s.blank).reduce((latest,s)=>!latest || s.updatedAt>latest.updatedAt ? s : latest,undefined)
-  const signal = book && book.notifications!=='none' && (book.chapters.some(s=>statuses.get(s.id)?.pendingInteraction) ? copy.activity : book.notifications==='all' && book.chapters.some(s=>statuses.get(s.id)?.completionUnread) ? copy.unread : undefined)
+  const activityOf = b=>bookActivity(b,statuses)
+  const totalActivity = bookActivity({memberIds:books.flatMap(b=>b.memberIds)},statuses)
   const adjacent = books.filter(b=>b.key!==book?.key).slice(0,2)
   const visible = (all ? bookSessions : bookSessions.slice(0,12)).map(s=>({...s,pending:statuses.get(s.id)?.pendingInteraction,running:statuses.get(s.id)?.running,unread:statuses.get(s.id)?.completionUnread}))
   function cover(b) {
-    return <ProjectCover {...b} imprint={b.category || (b.id ? (b.status==='completed' ? copy.done : copy.status) : '')} caption={b.chapters.filter(s=>!s.blank).length+' '+copy.count} signal={b.key===book?.key ? signal : undefined}/>
+    return <ProjectCover {...b} imprint={b.category || (b.id ? (b.status==='completed' ? copy.done : copy.status) : '')} caption={b.chapters.filter(s=>!s.blank).length+' '+copy.count} signal={activityOf(b).running || activityOf(b).waiting ? <Activity activity={activityOf(b)} copy={copy}/> : b.notifications==='all' && b.chapters.some(s=>statuses.get(s.id)?.completionUnread) ? copy.unread : undefined}/>
   }
   async function save(value) {
     await actions.save(edit.id,value)
@@ -135,7 +144,7 @@ function Shelf({wide, expandSidebar, useWorkspaces, useSessions, useSessionStatu
   return <>
     <section ref={wide ? bindScrollerRef : undefined} className={css.shelf} data-bookshelf="" data-wide={wide}>
       {wide ? <>
-        <header className={css.toolbar}><strong>{copy.shelf}</strong>
+        <header className={css.toolbar}><strong>{copy.shelf}<Activity activity={totalActivity} copy={copy} compact/></strong>
           <button type="button" aria-label={copy.search} title={copy.search} onClick={openCatalog}><IconSearchOutlineRegular size={16}/></button>
           {canAdd && <button type="button" aria-label={copy.add} title={copy.add} onClick={beginAdd}><IconFolderOpenRegular size={16}/></button>}
         </header>
@@ -150,7 +159,7 @@ function Shelf({wide, expandSidebar, useWorkspaces, useSessions, useSessionStatu
             <button type="button" className={css.libraryButton} onClick={openCatalog}><IconLayersOutlineRegular size={15}/>{copy.library}<small>{books.filter(b=>b.id).length}</small><IconChevronRightOutlineRegular size={12}/></button>
             {book.id && <><NewChapter book={book} actions={actions} useWorkspaceAccess={useWorkspaceAccess} copy={copy}/><button type="button" title={copy.edit} aria-label={copy.edit} onClick={()=>setEdit(book)}><IconListPenOutlineRegular size={16}/></button></>}
           </div>
-          {adjacent.length>0 && <div className={css.adjacent}>{adjacent.map(b=><button type="button" key={b.key} onClick={()=>choose(b)} style={coverInk(b.color)} title={b.name}><span className={css.miniBook}><MiniCover icon={b.icon}/></span><span>{b.name}</span></button>)}</div>}
+          {adjacent.length>0 && <div className={css.adjacent}>{adjacent.map(b=><button type="button" key={b.key} onClick={()=>choose(b)} style={coverInk(b.color)} title={b.name}><span className={css.miniBook}><MiniCover icon={b.icon}/></span><span className={css.quickTitle}>{b.name}</span><Activity activity={activityOf(b)} copy={copy} compact/></button>)}</div>}
           <div className={css.chapterHead}><span>{archives ? copy.archived : copy.chapters}</span><button type="button" title={archives ? copy.hideArchived : copy.showArchived} aria-label={archives ? copy.hideArchived : copy.showArchived} onClick={()=>{showArchives(!archives);showAll(false)}}>{archives ? '↶' : '▤'}</button></div>
           <div className={css.chapters}>{visible.map(s=><Chapter key={s.id} session={s} archived={archives} current={s.id===current} {...{copy,actions,useContextMenu,renderFactorySlot}}/>)}</div>
           {!bookSessions.length && <p className={css.message}>{archives ? copy.archived+' · 0' : copy.none}</p>}

@@ -4,6 +4,14 @@
 .toolbar,.switcher,.libraryButton,.resume,.chapterHead,.adjacent button,.catalogInner header,.pathForm header,.folderTools,.folders button,.returnButton { display:flex; align-items:center; }
 .toolbar { gap:5px; margin:0 0 12px; }
 .toolbar strong { margin-right:auto; font-size:13px; font-weight:500; }
+.toolbar strong { display:flex; align-items:center; gap:7px; }
+.activity,.activity>span,.chapterStatus { display:inline-flex; align-items:center; gap:4px; }
+.activity { flex:none; font:500 10px/16px system-ui,sans-serif; gap:7px; white-space:nowrap; }
+.spinner { display:inline-block; flex:none; width:10px; height:10px; box-sizing:border-box; border:1.5px solid currentColor; border-right-color:transparent; border-radius:50%; animation:bookshelfWorking .85s linear infinite; }
+.waitingDot { display:inline-block; flex:none; width:5px; height:5px; border-radius:50%; background:currentColor; }
+.quickTitle { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+@keyframes bookshelfWorking { to { transform:rotate(360deg); } }
+@media (prefers-reduced-motion:reduce) { .spinner { animation:none; } }
 .toolbar button,.switcher>button:not(.libraryButton),.chapterHead button,.menu,.rail { width:28px; height:28px; display:inline-flex; align-items:center; justify-content:center; padding:0; border-radius:5px; }
 .toolbar button:hover,.switcher>button:hover,.chapterHead button:hover { background:var(--dsw-alias-interactive-bg-hover); }
 .volume { position:relative; isolation:isolate; padding-bottom:5px; }

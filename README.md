@@ -6,7 +6,7 @@
 
 **把项目摆上书架，把会话翻成章节。**
 
-[下载 v1.1.1](https://github.com/zhishengplus/dsh-project-bookshelf/releases/download/v1.1.1/dsh-project-bookshelf-1.1.1.tgz)　·　[在 DSH 中安装](#install)　·　[看操作演示](#demo)　·　[English](README.en.md)
+[下载 v1.1.2](https://github.com/zhishengplus/dsh-project-bookshelf/releases/download/v1.1.2/dsh-project-bookshelf-1.1.2.tgz)　·　[在 DSH 中安装](#install)　·　[看操作演示](#demo)　·　[English](README.en.md)
 
 </div>
 
@@ -19,6 +19,12 @@
 配图中的书名是虚构演示。实际安装后，书架上的项目名称、会话标题和对话内容来自你当前使用的 DSH。
 
 书架底部的 **原版工作区** 可以随时切回 DSH 原有列表，再点 **书架模式** 回来。两种视图使用同一批项目、会话、置顶和归档记录，选择的模式会记住。
+
+**一眼看到哪本书还在工作。** 封面、快捷书位和全部项目都会显示转圈与工作中的对话数，会话行同步更新。需要你确认或回复时显示「待处理」，结束后停止转圈。
+
+![书架实时显示工作中、待处理和完成状态](docs/media/activity.gif)
+
+状态演示使用虚构项目并模拟切换；实际安装读取 DSH 的实时会话状态。
 
 <a id="install"></a>
 ## 把书架装进 DSH
@@ -39,7 +45,7 @@ https://raw.githubusercontent.com/zhishengplus/dsh-project-bookshelf/main/market
 已安装 DSH CLI 的 Web 用户运行：
 
 ```sh
-dsh plugin --profile web add https://github.com/zhishengplus/dsh-project-bookshelf/releases/download/v1.1.1/dsh-project-bookshelf-1.1.1.tgz
+dsh plugin --profile web add https://github.com/zhishengplus/dsh-project-bookshelf/releases/download/v1.1.2/dsh-project-bookshelf-1.1.2.tgz
 ```
 
 也可以从 [Releases](https://github.com/zhishengplus/dsh-project-bookshelf/releases/latest) 下载 `.tgz`，再将命令里的 URL 换成本地安装包的绝对路径。使用 Desktop **内置命令**时，将 `--profile web` 换成 `--profile desktop`。普通 npm CLI 管理的是 Web 等 profile。

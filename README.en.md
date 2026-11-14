@@ -2,7 +2,7 @@
 
 Recognize a workspace by its cover. Pick a chapter to reopen the conversation where you left off.
 
-[Download v1.1.1](https://github.com/zhishengplus/dsh-project-bookshelf/releases/latest) · [中文](README.md)
+[Download v1.1.2](https://github.com/zhishengplus/dsh-project-bookshelf/releases/latest) · [中文](README.md)
 
 ![Six fictional workspaces on the collection shelf](docs/media/catalog.png)
 
@@ -17,7 +17,7 @@ https://raw.githubusercontent.com/zhishengplus/dsh-project-bookshelf/main/market
 For the Web CLI:
 
 ```sh
-dsh plugin --profile web add https://github.com/zhishengplus/dsh-project-bookshelf/releases/download/v1.1.1/dsh-project-bookshelf-1.1.1.tgz
+dsh plugin --profile web add https://github.com/zhishengplus/dsh-project-bookshelf/releases/download/v1.1.2/dsh-project-bookshelf-1.1.2.tgz
 ```
 
 ## Open the first book
@@ -25,6 +25,12 @@ dsh plugin --profile web add https://github.com/zhishengplus/dsh-project-bookshe
 The plugin replaces the workspace browsing area with a bookshelf by default. Your existing projects become books and their conversations become chapters. Select the featured cover to search by folder, alias, category or conversation title. Pick a chapter to reopen it.
 
 The screenshots use fictional projects. Your installed bookshelf reads the project names, conversation titles and messages from your own DSH instance.
+
+Covers, quick switches and the collection show a live spinner and the number of working conversations. Conversation rows update too. Pending confirmations appear separately, and the spinner stops when work ends. System reduced-motion preferences are respected.
+
+![Working, waiting and completed conversations on the shelf](docs/media/activity.gif)
+
+The animation simulates status changes with fictional projects. Installed copies read live DSH session status.
 
 The gray **+** book at the end of the collection adds a project folder. DSH opens its system chooser on desktop or its directory browser in remote environments, then shows the cover editor. Projects added through the original workspace picker open the same editor. The collection resizes with the window and scrolls its books while keeping search and close controls visible.
 

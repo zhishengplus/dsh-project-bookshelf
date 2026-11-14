@@ -42,3 +42,11 @@ test('archive filter, pinned ordering and the active blank conversation remain a
   assert.deepEqual(chapterList(ids,rows,archived,{current:'blank',pinned:['pin']}).map(s=>s.id),['blank','pin','a'])
   assert.deepEqual(chapterList(ids,rows,archived,{archives:true}).map(s=>s.id),['old'])
 })
+
+import {bookActivity} from '../src/library.mjs'
+test('project activity counts live conversations once and treats confirmations as waiting',()=>{
+ const book={memberIds:['run','run','wait','idle','missing']}
+ const statuses=new Map([['run',{running:true}],['wait',{running:true,pendingInteraction:{kind:'approval'}}],['idle',{running:false,completionUnread:true}]])
+ assert.deepEqual(bookActivity(book,statuses),{running:1,waiting:1})
+ assert.deepEqual(bookActivity(book,new Map()),{running:0,waiting:0})
+})

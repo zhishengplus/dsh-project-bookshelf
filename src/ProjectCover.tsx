@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react'
+import type { CSSProperties, ReactNode } from 'react'
 import {
   IconBranchOutlineRegular, IconChecklistOutlineRegular, IconClockOutlineRegular, IconCodeOutlineRegular,
   IconDatabaseOutlineRegular, IconFolderCloseRegular, IconFolderOpenRegular, IconGlobeOutlineRegular,
@@ -64,7 +64,7 @@ function BookTitle({ name }: { name: string }) {
 }
 
 export function ProjectCover({ name, folder, color, icon, imprint, caption, signal }: {
-  name: string; folder?: string | undefined; color: string; icon?: string | undefined; imprint: string; caption?: string | undefined; signal?: string | undefined
+  name: string; folder?: string | undefined; color: string; icon?: string | undefined; imprint: string; caption?: string | undefined; signal?: ReactNode
 }) {
   const title = folder || name
   return <span className={css.cover} style={coverInk(color)} data-project-cover="" data-color={color}>

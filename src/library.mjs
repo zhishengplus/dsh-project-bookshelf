@@ -44,3 +44,14 @@ export function matchBook(book, query) {
   const needle = query.trim().toLocaleLowerCase()
   return [book.folder, book.name, book.category].some(value => value.toLocaleLowerCase().includes(needle))
 }
+
+/** Running and waiting are separate facts; a pending confirmation pauses the spinner. */
+export function bookActivity(book, statuses) {
+  let running=0,waiting=0
+  for(const id of new Set(book.memberIds)) {
+    const status=statuses.get(id)
+    if(status?.pendingInteraction)waiting++
+    else if(status?.running)running++
+  }
+  return {running,waiting}
+}
