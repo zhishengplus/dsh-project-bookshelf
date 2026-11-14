@@ -2,13 +2,13 @@
 
 Recognize a workspace by its cover. Pick a chapter to reopen the conversation where you left off.
 
-[Download v1.1.0](https://github.com/zhishengplus/dsh-project-bookshelf/releases/latest) · [中文](README.md)
+[Download v1.1.1](https://github.com/zhishengplus/dsh-project-bookshelf/releases/latest) · [中文](README.md)
 
 ![Six fictional workspaces on the collection shelf](docs/media/catalog.png)
 
 ## Install
 
-In DeepSeek Harness, enable **Custom Plugin Index** under experimental plugins. From **Plugins → Discover**, add this index, select **Project Bookshelf** and install it:
+With [Open Plugin Market](https://dshopen.org) enabled, search for **Project Bookshelf** in **Plugins → Discover**. Alternatively, enable **Custom Plugin Index** under experimental plugins and add the author's index:
 
 ```text
 https://raw.githubusercontent.com/zhishengplus/dsh-project-bookshelf/main/market.json
@@ -17,7 +17,7 @@ https://raw.githubusercontent.com/zhishengplus/dsh-project-bookshelf/main/market
 For the Web CLI:
 
 ```sh
-dsh plugin --profile web add https://github.com/zhishengplus/dsh-project-bookshelf/releases/download/v1.1.0/dsh-project-bookshelf-1.1.0.tgz
+dsh plugin --profile web add https://github.com/zhishengplus/dsh-project-bookshelf/releases/download/v1.1.1/dsh-project-bookshelf-1.1.1.tgz
 ```
 
 ## Open the first book
@@ -25,6 +25,8 @@ dsh plugin --profile web add https://github.com/zhishengplus/dsh-project-bookshe
 The plugin replaces the workspace browsing area with a bookshelf by default. Your existing projects become books and their conversations become chapters. Select the featured cover to search by folder, alias, category or conversation title. Pick a chapter to reopen it.
 
 The screenshots use fictional projects. Your installed bookshelf reads the project names, conversation titles and messages from your own DSH instance.
+
+The gray **+** book at the end of the collection adds a project folder. DSH opens its system chooser on desktop or its directory browser in remote environments, then shows the cover editor. Projects added through the original workspace picker open the same editor. The collection resizes with the window and scrolls its books while keeping search and close controls visible.
 
 Select **Original workspace** at the bottom to use the native list. Select **Bookshelf mode** beside New session to return. Both views share the same projects, conversations, pins and archives. Your view preference survives reloads.
 

@@ -9,10 +9,11 @@ import { ProjectAppearanceDialog } from './project-appearance'
 import { automaticProjectColor } from './project-identity'
 import { buildBooks, chapterList, matchBook, readCover, writeCover } from './library.mjs'
 import css from './shelf.module.css'
+import {watchNewProjects, pickProjectDirectory} from './project-flow.mjs'
 
 const same = value => value
-const zh = { shelf:'项目书架', native:'原版工作区', bookshelf:'书架模式', library:'全部项目', browse:'选择项目', search:'搜索项目、会话或分类', chapters:'会话', resume:'继续', edit:'编辑封面', new:'新会话', none:'这个项目还没有会话', empty:'添加文件夹，开始你的第一本书', add:'添加项目', close:'关闭', status:'开发中', done:'已完成', unnamed:'未命名会话', blank:'新会话', ungrouped:'未分组', count:'个会话', unmatched:'没有匹配的项目或会话', more:'展开其余会话', less:'收起会话', activity:'待处理', running:'进行中', unread:'有新进展', category:'全部分类', path:'项目文件夹路径', loading:'正在载入项目…', archived:'已归档', showArchived:'查看归档', hideArchived:'返回会话', restore:'恢复会话', menu:'会话操作', chooseFolder:'浏览文件夹', useFolder:'使用此文件夹', browseFolder:'选择项目文件夹', parent:'上一级', storage:'无法保存视图设置，请检查浏览器存储权限' }
-const en = { shelf:'Project Bookshelf', native:'Original workspace', bookshelf:'Bookshelf mode', library:'All projects', browse:'Choose a project', search:'Search projects, conversations or categories', chapters:'Conversations', resume:'Resume', edit:'Edit cover', new:'New session', none:'No conversations yet', empty:'Add a folder to start your first book', add:'Add project', close:'Close', status:'In progress', done:'Completed', unnamed:'Untitled conversation', blank:'New session', ungrouped:'Ungrouped', count:'sessions', unmatched:'No matching projects or conversations', more:'Show remaining conversations', less:'Show fewer', activity:'Needs attention', running:'Running', unread:'New activity', category:'All categories', path:'Project folder path', loading:'Loading projects…', archived:'Archived', showArchived:'View archives', hideArchived:'Back to conversations', restore:'Restore conversation', menu:'Conversation actions', chooseFolder:'Browse folders', useFolder:'Use this folder', browseFolder:'Choose project folder', parent:'Parent folder', storage:'Cannot save view preference. Check browser storage permissions.' }
+const zh = { shelf:'项目书架', native:'原版工作区', bookshelf:'书架模式', library:'全部项目', browse:'选择项目', search:'搜索项目、会话或分类', chapters:'会话', resume:'继续', edit:'编辑封面', new:'新会话', none:'这个项目还没有会话', empty:'添加文件夹，开始你的第一本书', add:'添加项目', addHint:'选择文件夹，设计封面', close:'关闭', status:'开发中', done:'已完成', unnamed:'未命名会话', blank:'新会话', ungrouped:'未分组', count:'个会话', unmatched:'没有匹配的项目或会话', more:'展开其余会话', less:'收起会话', activity:'待处理', running:'进行中', unread:'有新进展', category:'全部分类', path:'项目文件夹路径', loading:'正在载入项目…', archived:'已归档', showArchived:'查看归档', hideArchived:'返回会话', restore:'恢复会话', menu:'会话操作', chooseFolder:'浏览文件夹', useFolder:'使用此文件夹', browseFolder:'选择项目文件夹', parent:'上一级', storage:'无法保存视图设置，请检查浏览器存储权限' }
+const en = { shelf:'Project Bookshelf', native:'Original workspace', bookshelf:'Bookshelf mode', library:'All projects', browse:'Choose a project', search:'Search projects, conversations or categories', chapters:'Conversations', resume:'Resume', edit:'Edit cover', new:'New session', none:'No conversations yet', empty:'Add a folder to start your first book', add:'Add project', addHint:'Choose a folder and design its cover', close:'Close', status:'In progress', done:'Completed', unnamed:'Untitled conversation', blank:'New session', ungrouped:'Ungrouped', count:'sessions', unmatched:'No matching projects or conversations', more:'Show remaining conversations', less:'Show fewer', activity:'Needs attention', running:'Running', unread:'New activity', category:'All categories', path:'Project folder path', loading:'Loading projects…', archived:'Archived', showArchived:'View archives', hideArchived:'Back to conversations', restore:'Restore conversation', menu:'Conversation actions', chooseFolder:'Browse folders', useFolder:'Use this folder', browseFolder:'Choose project folder', parent:'Parent folder', storage:'Cannot save view preference. Check browser storage permissions.' }
 
 function useCopy(actions) {
   const language = useSyncExternalStore(actions.subscribeLocale, actions.language)
@@ -40,28 +41,28 @@ function Chapter({session, archived, current, copy, actions, useContextMenu, ren
   </div>
 }
 function FolderBrowser({actions, copy, close, choose}) {
-  const [listing, setListing] = useState(null)
-  const [path, setPath] = useState('')
-  const [error, setError] = useState('')
-  const generation = useRef(0)
+  const [listing,setListing]=useState(null),[path,setPath]=useState(''),[error,setError]=useState(''),[busy,setBusy]=useState(false)
+  const generation=useRef(0),committing=useRef(false)
   async function browse(next) {
-    const request = ++generation.current
-    setError('')
-    try {
-      const result = await actions.listDirectory(next)
-      if(request === generation.current){setListing(result);setPath(result.path)}
-    } catch(e){if(request === generation.current)setError(e.message)}
+    const request=++generation.current;setBusy(true);setError('')
+    try{const result=await actions.listDirectory(next);if(request===generation.current){setListing(result);setPath(result.path)}}
+    catch(e){if(request===generation.current)setError(e.message)}
+    finally{if(request===generation.current)setBusy(false)}
   }
   useEffect(()=>{void browse();return()=>{generation.current++}},[])
-  return <Modal open headless title={copy.browseFolder} onClose={close} className={css.pathDialog}>
-    <form className={css.pathForm} onSubmit={e=>{e.preventDefault(); if(path.trim())choose(path.trim())}}>
-      <header><h2>{copy.browseFolder}</h2><button type="button" aria-label={copy.close} onClick={close}><IconCloseOutlineRegular size={16}/></button></header>
-      <label>{copy.path}<input data-modal-autofocus value={path} required onChange={e=>setPath(e.target.value)}/></label>
-      <div className={css.folderTools}><button type="button" onClick={()=>void browse(path)}>{copy.chooseFolder}</button>
-        {listing?.crumbs?.length > 1 && <button type="button" onClick={()=>void browse(listing.crumbs.at(-2).path)}>{copy.parent}</button>}</div>
-      <div className={css.folders}>{listing?.entries?.filter(entry=>!entry.hidden).map(entry=><button type="button" key={entry.path} onClick={()=>void browse(entry.path)}><IconFolderOpenRegular size={16}/>{entry.name}<span>›</span></button>)}</div>
+  async function submit(e) {
+    e.preventDefault();if(committing.current || !path.trim())return
+    committing.current=true;setBusy(true);setError('')
+    try{await choose(path.trim())}catch(e){setError(e.message)}finally{committing.current=false;setBusy(false)}
+  }
+  return <Modal open headless title={copy.browseFolder} onClose={()=>{if(!committing.current)close()}} className={css.pathDialog}>
+    <form className={css.pathForm} onSubmit={submit}>
+      <header><h2>{copy.browseFolder}</h2><button type="button" aria-label={copy.close} disabled={busy} onClick={close}><IconCloseOutlineRegular size={16}/></button></header>
+      <label>{copy.path}<input data-modal-autofocus value={path} required disabled={busy} onChange={e=>setPath(e.target.value)}/></label>
+      <div className={css.folderTools}><button type="button" disabled={busy} onClick={()=>void browse(path || undefined)}>{copy.chooseFolder}</button>{listing?.crumbs?.length>1 && <button type="button" disabled={busy} onClick={()=>void browse(listing.crumbs.at(-2).path)}>{copy.parent}</button>}</div>
+      <div className={css.folders} aria-busy={busy}>{listing?.entries?.filter(entry=>!entry.hidden).map(entry=><button type="button" disabled={busy} key={entry.path} onClick={()=>void browse(entry.path)}><IconFolderOpenRegular size={16}/>{entry.name}<span>›</span></button>)}</div>
       {error && <p role="alert" className={css.error}>{error}</p>}
-      <footer><button type="button" onClick={close}>{copy.close}</button><button type="submit">{copy.useFolder}</button></footer>
+      <footer><button type="button" disabled={busy} onClick={close}>{copy.close}</button><button type="submit" disabled={busy || !path.trim()}>{copy.useFolder}</button></footer>
     </form>
   </Modal>
 }
@@ -81,13 +82,14 @@ function Shelf({wide, expandSidebar, useWorkspaces, useSessions, useSessionStatu
   const [picking, setPicking] = useState(false)
   const [version, refresh] = useState(0)
   const [error, setError] = useState('')
-  const created = useRef(null)
+  const adding = useRef(false)
   const previousCurrent = useRef()
   const current = Object.values(sessions.byId).find(s => s.retainedBy?.mainView)?.id
   useEffect(()=>{
-    const update = e=>{if(e.key===null || e.key.startsWith('dsh.project-bookshelf.v1.'))refresh(v=>v+1)}
+    const update = e=>{if(!e.key || e.key.startsWith('dsh.project-bookshelf.v1.'))refresh(v=>v+1)}
     window.addEventListener('storage',update)
-    return ()=>window.removeEventListener('storage',update)
+    window.addEventListener('dsh-project-bookshelf:cover',update)
+    return ()=>{window.removeEventListener('storage',update);window.removeEventListener('dsh-project-bookshelf:cover',update)}
   },[])
   const books = useMemo(()=>buildBooks(workspaces,sessions,id=>readCover(window.localStorage,id),copy.ungrouped).map(b=>({
     ...b,color:coverColors.includes(b.color) ? b.color : automaticProjectColor(b.key),icon:coverIcons.includes(b.icon) ? b.icon : 'folder',
@@ -102,6 +104,17 @@ function Shelf({wide, expandSidebar, useWorkspaces, useSessions, useSessionStatu
   },[current])
   const book = books.find(b=>b.key===selected) || books.find(b=>b.memberIds.includes(current)) || books[0]
   const canCreate = useRemoteAccess('workspace/create')
+  const canAdd = canCreate
+  async function adopt(path) {
+    const project=await actions.create(path)
+    select(project.workspaceId);setPicking(false)
+  }
+  async function beginAdd() {
+    if(adding.current)return
+    adding.current=true;setError('');setCatalog(false)
+    try{const picked=await actions.pickFolder();if(picked.kind==='browse')setPicking(true);else if(picked.path)await adopt(picked.path)}
+    catch(e){setError(e.message)}finally{adding.current=false}
+  }
   const categories = [...new Set(books.map(b=>b.category).filter(Boolean))]
   const needle = query.trim().toLocaleLowerCase()
   const filtered = books.filter(b=>(!category || category===b.category) && (matchBook(b,query) || b.allSessions.some(s=>s.title?.toLocaleLowerCase().includes(needle))))
@@ -116,24 +129,15 @@ function Shelf({wide, expandSidebar, useWorkspaces, useSessions, useSessionStatu
     return <ProjectCover {...b} imprint={b.category || (b.id ? (b.status==='completed' ? copy.done : copy.status) : '')} caption={b.chapters.filter(s=>!s.blank).length+' '+copy.count} signal={b.key===book?.key ? signal : undefined}/>
   }
   async function save(value) {
-    let project = edit
-    if(!project.id){
-      created.current ??= await actions.create(project.path,value.name)
-      project = {...project,id:created.current.workspaceId}
-    }
-    await actions.save(project.id,value)
-    select(project.id);refresh(v=>v+1)
-  }
-  function draft(path) {
-    created.current=null;setPicking(false)
-    setEdit({path,name:'',category:'',icon:'folder',color:automaticProjectColor(path),notifications:'all',status:'developing'})
+    await actions.save(edit.id,value)
+    select(edit.id);refresh(v=>v+1)
   }
   return <>
     <section ref={wide ? bindScrollerRef : undefined} className={css.shelf} data-bookshelf="" data-wide={wide}>
       {wide ? <>
         <header className={css.toolbar}><strong>{copy.shelf}</strong>
           <button type="button" aria-label={copy.search} title={copy.search} onClick={openCatalog}><IconSearchOutlineRegular size={16}/></button>
-          {canCreate && <button type="button" aria-label={copy.add} title={copy.add} onClick={()=>setPicking(true)}><IconFolderOpenRegular size={16}/></button>}
+          {canAdd && <button type="button" aria-label={copy.add} title={copy.add} onClick={beginAdd}><IconFolderOpenRegular size={16}/></button>}
         </header>
         {book ? <>
           <div className={css.volume} style={coverInk(book.color)}>
@@ -163,20 +167,32 @@ function Shelf({wide, expandSidebar, useWorkspaces, useSessions, useSessionStatu
           onKeyDown={e=>{if(e.key==='Enter' && !e.nativeEvent.isComposing && filtered[0])choose(filtered[0])}}/>
           {categories.length>0 && <select aria-label={copy.category} value={category} onChange={e=>setCategory(e.target.value)}><option value="">{copy.category}</option>{categories.map(c=><option key={c}>{c}</option>)}</select>}
         </div>
-        <div className={css.grid}>{filtered.map(b=><button type="button" key={b.key} className={css.coverButton} aria-pressed={b.key===book?.key} onClick={()=>choose(b)} aria-label={b.name}>{cover(b)}</button>)}</div>
-        {!filtered.length && <p className={css.message}>{copy.unmatched}</p>}
+        <div className={css.catalogScroll}><div className={css.grid}>{filtered.map(b=><button type="button" key={b.key} className={css.coverButton} aria-pressed={b.key===book?.key} onClick={()=>choose(b)} aria-label={b.name}>{cover(b)}</button>)}
+          {canAdd && <button type="button" className={css.addBook} aria-label={copy.add} onClick={beginAdd}><span className={css.addBookMark} aria-hidden="true">+</span><strong>{copy.add}</strong><span className={css.addBookHint}>{copy.addHint}</span></button>}
+        </div>
+        {!filtered.length && <p className={css.message}>{copy.unmatched}</p>}</div>
       </div>
     </Modal>}
-    {picking && <FolderBrowser actions={actions} copy={copy} close={()=>setPicking(false)} choose={draft}/>}
+    {picking && <FolderBrowser actions={actions} copy={copy} close={()=>setPicking(false)} choose={adopt}/> }
     {edit && <ProjectAppearanceDialog open mode={edit.id ? 'edit':'create'} language={language} path={edit.path} defaultName={edit.folder || folderTitle(edit.path)} initialValue={edit} categories={categories} onClose={()=>setEdit(null)} onSubmit={save}/>}
   </>
+}
+function NewProjectSetup({actions}) {
+  const queue = useSyncExternalStore(actions.setup.subscribe,actions.setup.getSnapshot)
+  const [copy,language] = useCopy(actions)
+  const project = queue[0]
+  if(!project)return null
+  const saved = readCover(localStorage,project.workspaceId)
+  const initial = {name:project.title || '',color:automaticProjectColor(project.workspaceId),icon:'folder',category:'',notifications:'all',status:'developing',...saved}
+  const categories = actions.workspaceSource.getSnapshot().items.map(row=>readCover(localStorage,row.workspaceId).category || row.category).filter(Boolean)
+  return <ProjectAppearanceDialog key={project.workspaceId} open mode="create" language={language} path={project.path} defaultName={folderTitle(project.path)} initialValue={initial} categories={categories} onClose={()=>actions.setup.dismiss(project.workspaceId)} onSubmit={value=>actions.save(project.workspaceId,value)}/>
 }
 function ModeButton({children,wide,actions}) {
   const native = useSyncExternalStore(actions.mode.subscribe,actions.mode.get)
   const [copy] = useCopy(actions)
   return <>{children}{native && <button type="button" className={css.returnButton} title={copy.bookshelf} aria-label={copy.bookshelf} onClick={()=>actions.mode.set(false)}><IconLayersOutlineRegular size={16}/>{wide && <span>{copy.bookshelf}</span>}</button>}</>
 }
-export const inject = ['slots','uiWorkspace','workspaces','uiSession','remoteAccess','locale','contextMenus']
+export const inject = ['slots','uiWorkspace','workspaces','uiSession','remoteAccess','locale','contextMenus','remote','remote.directoryPicker']
 export function apply(ctx) {
   let native = localStorage.getItem('dsh.project-bookshelf.native')==='true'
   const listeners=new Set()
@@ -194,10 +210,24 @@ export function apply(ctx) {
     window.addEventListener('storage',change)
     return()=>{style.remove();window.removeEventListener('storage',change)}
   })
+  let pendingProjects = []
+  const setupListeners = new Set()
+  const notifySetup = ()=>{for(const listener of setupListeners)listener()}
+  const setup = {
+    getSnapshot:()=>pendingProjects,
+    subscribe:listener=>{setupListeners.add(listener);return()=>setupListeners.delete(listener)},
+    dismiss:id=>{pendingProjects=pendingProjects.filter(row=>row.workspaceId!==id);notifySetup()},
+  }
+  const workspaceSource = ctx.workspaces.list
+  ctx.effect(()=>watchNewProjects(workspaceSource,row=>{
+    pendingProjects=[...pendingProjects,row];notifySetup()
+  }))
   const actions = {
-    mode,subscribeLocale:listener=>ctx.locale.subscribe(listener),language:()=>ctx.locale.getLocale().active,
+    mode,setup,workspaceSource,
+    pickFolder:()=>pickProjectDirectory(globalThis.__DSH_DIRECTORY_PICKER__,ctx.remote.directoryPicker),
+    listDirectory:path=>ctx.uiWorkspace.listDirectory(path),create:path=>ctx.workspaces.create({path}),
+    subscribeLocale:listener=>ctx.locale.subscribe(listener),language:()=>ctx.locale.getLocale().active,
     open:id=>ctx.uiWorkspace.openSession(id),start:id=>ctx.uiWorkspace.startSession(id),restore:id=>ctx.uiWorkspace.unarchiveSession(id),
-    create:(path,title)=>ctx.workspaces.create({path,title}),listDirectory:path=>ctx.uiWorkspace.listDirectory(path),
     save:async(id,value)=>{
       if(typeof ctx.workspaces.updateMetadata==='function'){
         const {name,...metadata}=value
@@ -205,6 +235,7 @@ export function apply(ctx) {
       }
       else if(value.name)await ctx.workspaces.rename(id,value.name)
       writeCover(localStorage,id,value)
+      window.dispatchEvent(new Event('dsh-project-bookshelf:cover'))
     },
   }
   ctx.slots.inject('sidebar.workspaces',()=>{
@@ -216,5 +247,6 @@ export function apply(ctx) {
     sync();const unsubscribe=mode.subscribe(sync)
     return()=>{unsubscribe();release?.()}
   })
+  ctx.slots.inject('shell.overlay',()=>ctx.slots.register({name:'shell.overlay',id:'project-bookshelf.new-project',inject:()=>({actions})},NewProjectSetup))
   ctx.slots.inject('sidebar.session.action',()=>ctx.slots.register({name:'sidebar.session.action',id:'project-bookshelf.mode',order:120,inject:()=>({actions})},ModeButton))
 }

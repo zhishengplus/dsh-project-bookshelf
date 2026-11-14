@@ -6,7 +6,7 @@
 
 **把项目摆上书架，把会话翻成章节。**
 
-[下载 v1.1.0](https://github.com/zhishengplus/dsh-project-bookshelf/releases/download/v1.1.0/dsh-project-bookshelf-1.1.0.tgz)　·　[在 DSH 中安装](#install)　·　[看操作演示](#demo)　·　[English](README.en.md)
+[下载 v1.1.1](https://github.com/zhishengplus/dsh-project-bookshelf/releases/download/v1.1.1/dsh-project-bookshelf-1.1.1.tgz)　·　[在 DSH 中安装](#install)　·　[看操作演示](#demo)　·　[English](README.en.md)
 
 </div>
 
@@ -23,13 +23,15 @@
 <a id="install"></a>
 ## 把书架装进 DSH
 
-**桌面用户**可以在插件页完成安装。在「插件 → 实验性插件」启用 **自定义插件索引**，打开「发现 → 添加索引源」，粘贴下面的地址。选择「项目书架」并点 **安装**。如果 DSH 提示重启，按界面提示操作。
+已启用[开放插件市场](https://dshopen.org)的用户，可以在「插件 → 发现」搜索 **项目书架** 并安装。如果 DSH 提示重启，按界面提示操作。
+
+也可以在「插件 → 实验性插件」启用 **自定义插件索引**，打开「发现 → 添加索引源」，添加作者索引：
 
 ```text
 https://raw.githubusercontent.com/zhishengplus/dsh-project-bookshelf/main/market.json
 ```
 
-安装后，展开左侧栏，原工作区位置就会显示 **项目书架** 和你已有的项目。第一次使用可以点书架标题右侧的文件夹按钮，浏览并添加一个已有目录。
+安装后，展开左侧栏，原工作区位置就会显示 **项目书架** 和你已有的项目。点书封打开全部项目，末尾的灰色 **＋** 书可以添加文件夹。选好文件夹后直接设计封面；书架右上角的文件夹按钮也能进入同一流程。从原版入口添加项目，也会接上封面设置。
 
 <details>
 <summary><b>使用 Web 版、命令行或下载的安装包</b></summary>
@@ -37,7 +39,7 @@ https://raw.githubusercontent.com/zhishengplus/dsh-project-bookshelf/main/market
 已安装 DSH CLI 的 Web 用户运行：
 
 ```sh
-dsh plugin --profile web add https://github.com/zhishengplus/dsh-project-bookshelf/releases/download/v1.1.0/dsh-project-bookshelf-1.1.0.tgz
+dsh plugin --profile web add https://github.com/zhishengplus/dsh-project-bookshelf/releases/download/v1.1.1/dsh-project-bookshelf-1.1.1.tgz
 ```
 
 也可以从 [Releases](https://github.com/zhishengplus/dsh-project-bookshelf/releases/latest) 下载 `.tgz`，再将命令里的 URL 换成本地安装包的绝对路径。使用 Desktop **内置命令**时，将 `--profile web` 换成 `--profile desktop`。普通 npm CLI 管理的是 Web 等 profile。
