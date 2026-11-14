@@ -114,7 +114,7 @@ function Shelf({wide, expandSidebar, useWorkspaces, useSessions, useSessionStatu
   const book = books.find(b=>b.key===selected) || books.find(b=>b.memberIds.includes(current)) || books[0]
   const canCreate = useRemoteAccess('workspace/create')
   const canAdd = canCreate
-  const canRemove = useWorkspaceAccess(book ? book.id : '', 'workspace/delete')
+  const canRemove = useWorkspaceAccess(edit?.id || book?.id || '', 'workspace/delete')
   async function adopt(path) {
     const project=await actions.create(path)
     select(project.workspaceId);setPicking(false)
@@ -163,14 +163,14 @@ function Shelf({wide, expandSidebar, useWorkspaces, useSessions, useSessionStatu
           </div>
           <div className={css.switcher}>
             <button type="button" className={css.libraryButton} onClick={openCatalog}><IconLayersOutlineRegular size={15}/>{copy.library}<small>{books.filter(b=>b.id).length}</small><IconChevronRightOutlineRegular size={12}/></button>
-            {book.id && <>
+            <>
               <button type="button" className={css.archiveToggle} data-active={archives || undefined} aria-pressed={archives}
                 title={archives ? copy.hideArchived : copy.showArchived} aria-label={archives ? copy.hideArchived : copy.showArchived}
                 onClick={()=>{showArchives(!archives);showAll(false)}}>
                 {archives ? <IconArchiveCheckOutlineRegular size={16}/> : <IconArchiveOutlineRegular size={16}/>}
               </button>
-              <button type="button" title={copy.edit} aria-label={copy.edit} onClick={()=>setEdit(book)}><IconListPenOutlineRegular size={16}/></button>
-            </>}
+              {book.id && <button type="button" title={copy.edit} aria-label={copy.edit} onClick={()=>setEdit(book)}><IconListPenOutlineRegular size={16}/></button>}
+            </>
           </div>
           {adjacent.length>0 && <div className={css.adjacent}>{adjacent.map(b=><button type="button" key={b.key} onClick={()=>choose(b)} style={coverInk(b.color)} title={b.name}><span className={css.miniBook}><MiniCover icon={b.icon}/></span><span className={css.quickTitle}>{b.name}</span><Activity activity={activityOf(b)} copy={copy} compact/></button>)}</div>}
           <div className={css.chapterHead}><span>{archives ? copy.archived : copy.chapters}</span>{book.id && !archives && <NewChapter book={book} actions={actions} useWorkspaceAccess={useWorkspaceAccess} copy={copy}/>}</div>

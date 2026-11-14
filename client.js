@@ -906,7 +906,7 @@ function Shelf({ wide, expandSidebar, useWorkspaces, useSessions, useSessionStat
   const book = books.find((b) => b.key === selected) || books.find((b) => b.memberIds.includes(current)) || books[0];
   const canCreate = useRemoteAccess("workspace/create");
   const canAdd = canCreate;
-  const canRemove = useWorkspaceAccess(book ? book.id : "", "workspace/delete");
+  const canRemove = useWorkspaceAccess(edit?.id || book?.id || "", "workspace/delete");
   async function adopt(path) {
     const project = await actions.create(path);
     select(project.workspaceId);
@@ -988,7 +988,7 @@ function Shelf({ wide, expandSidebar, useWorkspaces, useSessions, useSessionStat
             /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("small", { children: books.filter((b) => b.id).length }),
             /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_dsh_client_ui_primitives3.IconChevronRightOutlineRegular, { size: 12 })
           ] }),
-          book.id && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(import_jsx_runtime3.Fragment, { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(import_jsx_runtime3.Fragment, { children: [
             /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
               "button",
               {
@@ -1005,7 +1005,7 @@ function Shelf({ wide, expandSidebar, useWorkspaces, useSessions, useSessionStat
                 children: archives ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_dsh_client_ui_primitives3.IconArchiveCheckOutlineRegular, { size: 16 }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_dsh_client_ui_primitives3.IconArchiveOutlineRegular, { size: 16 })
               }
             ),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", title: copy.edit, "aria-label": copy.edit, onClick: () => setEdit(book), children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_dsh_client_ui_primitives3.IconListPenOutlineRegular, { size: 16 }) })
+            book.id && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", title: copy.edit, "aria-label": copy.edit, onClick: () => setEdit(book), children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_dsh_client_ui_primitives3.IconListPenOutlineRegular, { size: 16 }) })
           ] })
         ] }),
         adjacent.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: shelf_default.adjacent, children: adjacent.map((b) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("button", { type: "button", onClick: () => choose(b), style: coverInk(b.color), title: b.name, children: [

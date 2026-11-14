@@ -2,7 +2,7 @@
 
 Recognize a workspace by its cover. Pick a chapter to reopen the conversation where you left off.
 
-[Download v1.1.2](https://github.com/zhishengplus/dsh-project-bookshelf/releases/latest) · [中文](README.md)
+[Download v1.1.3](https://github.com/zhishengplus/dsh-project-bookshelf/releases/latest) · [中文](README.md)
 
 ![Six fictional workspaces on the collection shelf](docs/media/catalog.png)
 
@@ -17,7 +17,7 @@ https://raw.githubusercontent.com/zhishengplus/dsh-project-bookshelf/main/market
 For the Web CLI:
 
 ```sh
-dsh plugin --profile web add https://github.com/zhishengplus/dsh-project-bookshelf/releases/download/v1.1.2/dsh-project-bookshelf-1.1.2.tgz
+dsh plugin --profile web add https://github.com/zhishengplus/dsh-project-bookshelf/releases/download/v1.1.3/dsh-project-bookshelf-1.1.3.tgz
 ```
 
 ## Open the first book
@@ -45,3 +45,5 @@ The pencil opens a live cover proof with 12 paper colors and 12 printed motifs. 
 Display names are saved through DSH. Cover preferences use host workspace metadata when available and client-local storage on other versions. Verified on the official DSH Web 0.2.2-rc.3 release on Windows. All public images show fictional workspaces in an isolated profile.
 
 [MIT License](LICENSE) · [Report an issue](https://github.com/zhishengplus/dsh-project-bookshelf/issues)
+
+New session sits beside the conversation heading. The cover toolbar opens archived conversations, including ungrouped ones. Removing a project requires confirmation and keeps its folder and conversation history.

@@ -6,7 +6,7 @@
 
 **把项目摆上书架，把会话翻成章节。**
 
-[下载 v1.1.2](https://github.com/zhishengplus/dsh-project-bookshelf/releases/download/v1.1.2/dsh-project-bookshelf-1.1.2.tgz)　·　[在 DSH 中安装](#install)　·　[看操作演示](#demo)　·　[English](README.en.md)
+[下载 v1.1.3](https://github.com/zhishengplus/dsh-project-bookshelf/releases/download/v1.1.3/dsh-project-bookshelf-1.1.3.tgz)　·　[在 DSH 中安装](#install)　·　[看操作演示](#demo)　·　[English](README.en.md)
 
 </div>
 
@@ -45,7 +45,7 @@ https://raw.githubusercontent.com/zhishengplus/dsh-project-bookshelf/main/market
 已安装 DSH CLI 的 Web 用户运行：
 
 ```sh
-dsh plugin --profile web add https://github.com/zhishengplus/dsh-project-bookshelf/releases/download/v1.1.2/dsh-project-bookshelf-1.1.2.tgz
+dsh plugin --profile web add https://github.com/zhishengplus/dsh-project-bookshelf/releases/download/v1.1.3/dsh-project-bookshelf-1.1.3.tgz
 ```
 
 也可以从 [Releases](https://github.com/zhishengplus/dsh-project-bookshelf/releases/latest) 下载 `.tgz`，再将命令里的 URL 换成本地安装包的绝对路径。使用 Desktop **内置命令**时，将 `--profile web` 换成 `--profile desktop`。普通 npm CLI 管理的是 Web 等 profile。
@@ -94,3 +94,5 @@ npm run build
 欢迎通过 [Issues](https://github.com/zhishengplus/dsh-project-bookshelf/issues) 分享建议。排版问题请附 DSH 版本、窗口宽度和用示例项目复现的截图。
 
 [MIT 许可证](LICENSE) · [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) · [DSH 插件索引指南](https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/user/guide/plugin-market.zh.md)
+
+项目外观设置中的「移除项目」需再次确认，只移除项目登记，保留文件夹和会话历史。「新会话」位于会话栏标题，归档入口位于书封操作行。
