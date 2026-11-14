@@ -83,3 +83,5 @@
 .pathForm button:disabled { opacity:.5; cursor:default; }
 .shelf button:focus-visible,.catalogInner button:focus-visible,.pathForm button:focus-visible,.returnButton:focus-visible { outline:2px solid var(--dsw-alias-state-business-primary); outline-offset:1px; }
 @media (hover:none) { .chapterActions { opacity:1; } }
+
+.pathForm button[data-danger] { color:var(--dsw-alias-state-danger-primary, #ef6868); }

@@ -2,7 +2,7 @@
 
 Recognize a workspace by its cover. Pick a chapter to reopen the conversation where you left off.
 
-[Download v1.1.3](https://github.com/zhishengplus/dsh-project-bookshelf/releases/latest) · [中文](README.md)
+[Download v1.1.4](https://github.com/zhishengplus/dsh-project-bookshelf/releases/latest) · [中文](README.md)
 
 ![Six fictional workspaces on the collection shelf](docs/media/catalog.png)
 
@@ -17,8 +17,10 @@ https://raw.githubusercontent.com/zhishengplus/dsh-project-bookshelf/main/market
 For the Web CLI:
 
 ```sh
-dsh plugin --profile web add https://github.com/zhishengplus/dsh-project-bookshelf/releases/download/v1.1.3/dsh-project-bookshelf-1.1.3.tgz
+dsh plugin --profile web add https://github.com/zhishengplus/dsh-project-bookshelf/releases/download/v1.1.4/dsh-project-bookshelf-1.1.4.tgz
 ```
+
+The complete release is **1.1.4**. Community catalogs may take time to sync; if an older version is offered, use the author index or release tarball above.
 
 ## Open the first book
 
@@ -49,3 +51,9 @@ Display names are saved through DSH. Cover preferences use host workspace metada
 New session sits beside the conversation heading. The cover toolbar opens archived conversations, including ungrouped ones. Removing a project requires confirmation and keeps its folder and conversation history.
 
 For maintainers: [listing verification notes](docs/REVIEW.md) document pinned installation sources, implementation references and test scope.
+
+## Project actions, one right-click away
+
+![Project context menu using fictional project data](docs/media/project-menu-1.1.4.png)
+
+Right-click the main cover, a quick-switch book or a catalog book to rename, edit project settings, reveal its folder or remove its workspace registration. Shift+F10 opens the same menu. Removal asks for confirmation and keeps files and conversation history. Folder availability follows the DSH host.

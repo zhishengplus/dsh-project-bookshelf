@@ -6,7 +6,7 @@
 
 **把项目摆上书架，把会话翻成章节。**
 
-[下载 v1.1.3](https://github.com/zhishengplus/dsh-project-bookshelf/releases/download/v1.1.3/dsh-project-bookshelf-1.1.3.tgz)　·　[在 DSH 中安装](#install)　·　[看操作演示](#demo)　·　[English](README.en.md)
+[下载 v1.1.4](https://github.com/zhishengplus/dsh-project-bookshelf/releases/download/v1.1.4/dsh-project-bookshelf-1.1.4.tgz)　·　[在 DSH 中安装](#install)　·　[看操作演示](#demo)　·　[English](README.en.md)
 
 </div>
 
@@ -29,7 +29,7 @@
 <a id="install"></a>
 ## 把书架装进 DSH
 
-已启用[开放插件市场](https://dshopen.org)的用户，可以在「插件 → 发现」搜索 **项目书架** 并安装。如果 DSH 提示重启，按界面提示操作。
+已启用[开放插件市场](https://dshopen.org)的用户，可以在「插件 → 发现」搜索 **项目书架** 并安装。当前完整版本为 **1.1.4**。社区市场同步有延迟；若「发现」仍显示旧版，请使用下面的作者索引或发行包。若 DSH 提示重启，按界面提示操作。
 
 也可以在「插件 → 实验性插件」启用 **自定义插件索引**，打开「发现 → 添加索引源」，添加作者索引：
 
@@ -45,7 +45,7 @@ https://raw.githubusercontent.com/zhishengplus/dsh-project-bookshelf/main/market
 已安装 DSH CLI 的 Web 用户运行：
 
 ```sh
-dsh plugin --profile web add https://github.com/zhishengplus/dsh-project-bookshelf/releases/download/v1.1.3/dsh-project-bookshelf-1.1.3.tgz
+dsh plugin --profile web add https://github.com/zhishengplus/dsh-project-bookshelf/releases/download/v1.1.4/dsh-project-bookshelf-1.1.4.tgz
 ```
 
 也可以从 [Releases](https://github.com/zhishengplus/dsh-project-bookshelf/releases/latest) 下载 `.tgz`，再将命令里的 URL 换成本地安装包的绝对路径。使用 Desktop **内置命令**时，将 `--profile web` 换成 `--profile desktop`。普通 npm CLI 管理的是 Web 等 profile。
@@ -61,6 +61,12 @@ dsh plugin --profile web add https://github.com/zhishengplus/dsh-project-bookshe
 - **找项目。** 点当前书封打开目录。输入书名的一部分、别名或分类，或直接用分类下拉框筛选。
 - **接着做。** 点「继续」打开最近更新的章节，或点具体章节回到原会话。需要另起话题时，用章节栏旁的「新会话」。
 - **接入现有记录。** 未分组会话也有自己的书封。置顶会话排在前面，会话菜单可继续重命名、置顶和归档，归档列表支持恢复。
+
+## 右键这本书，常用操作就在手边
+
+![虚构项目上的项目右键菜单：重命名、项目设置、在文件夹显示和删除工作区](docs/media/project-menu-1.1.4.png)
+
+主书封、快捷书位和「全部项目」中的书，都可以直接右键。**重命名、项目设置、在文件夹显示** 不用切回原版列表；键盘选中书封后按 **Shift + F10** 也能打开。删除工作区前会再次确认，只移除登记，项目文件和历史会话继续保留。文件夹入口沿用 DSH 原生能力，不可用时显示为禁用。
 
 ## 一键回到原版工作区
 

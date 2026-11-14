@@ -10,6 +10,7 @@ import { ProjectAppearanceDialog } from './project-appearance'
 import { automaticProjectColor } from './project-identity'
 import { buildBooks, chapterList, matchBook, readCover, writeCover, bookActivity } from './library.mjs'
 import css from './shelf.module.css'
+import {registerProjectMenus, projectMenuTarget} from './project-menu.mjs'
 import {watchNewProjects, pickProjectDirectory} from './project-flow.mjs'
 
 const same = value => value
@@ -88,6 +89,9 @@ function Shelf({wide, expandSidebar, useWorkspaces, useSessions, useSessionStatu
   const [all, showAll] = useState(false)
   const [archives, showArchives] = useState(false)
   const [edit, setEdit] = useState(null)
+  const {getTriggerProps} = useContextMenu()
+  const [projectAction,setProjectAction] = useState(null)
+  useEffect(()=>actions.projectMenu.subscribe(request=>{setCatalog(false);if(request.action==='settings')setEdit(request.book);else setProjectAction(request)}),[])
   const [picking, setPicking] = useState(false)
   const [version, refresh] = useState(0)
   const [error, setError] = useState('')
@@ -157,7 +161,7 @@ function Shelf({wide, expandSidebar, useWorkspaces, useSessions, useSessionStatu
         {book ? <>
           <div className={css.volume} style={coverInk(book.color)}>
             <div className={css.jacket}>
-              <button type="button" className={css.coverButton} title={copy.browse} aria-label={copy.browse} onClick={openCatalog}>{cover(book)}</button>
+              <button type="button" className={css.coverButton} {...getTriggerProps(projectMenuTarget(book))} title={copy.browse} aria-label={copy.browse} onClick={openCatalog}>{cover(book)}</button>
               {first && <button type="button" className={css.resume} onClick={()=>actions.open(first.id)}><span>{copy.resume}</span><strong>{first.title || copy.unnamed}</strong><IconChevronRightOutlineRegular size={14}/></button>}
             </div>
           </div>
@@ -172,7 +176,7 @@ function Shelf({wide, expandSidebar, useWorkspaces, useSessions, useSessionStatu
               {book.id && <button type="button" title={copy.edit} aria-label={copy.edit} onClick={()=>setEdit(book)}><IconListPenOutlineRegular size={16}/></button>}
             </>
           </div>
-          {adjacent.length>0 && <div className={css.adjacent}>{adjacent.map(b=><button type="button" key={b.key} onClick={()=>choose(b)} style={coverInk(b.color)} title={b.name}><span className={css.miniBook}><MiniCover icon={b.icon}/></span><span className={css.quickTitle}>{b.name}</span><Activity activity={activityOf(b)} copy={copy} compact/></button>)}</div>}
+          {adjacent.length>0 && <div className={css.adjacent}>{adjacent.map(b=><button type="button" key={b.key} {...getTriggerProps(projectMenuTarget(b))} onClick={()=>choose(b)} style={coverInk(b.color)} title={b.name}><span className={css.miniBook}><MiniCover icon={b.icon}/></span><span className={css.quickTitle}>{b.name}</span><Activity activity={activityOf(b)} copy={copy} compact/></button>)}</div>}
           <div className={css.chapterHead}><span>{archives ? copy.archived : copy.chapters}</span>{book.id && !archives && <NewChapter book={book} actions={actions} useWorkspaceAccess={useWorkspaceAccess} copy={copy}/>}</div>
           <div className={css.chapters}>{visible.map(s=><Chapter key={s.id} session={s} archived={archives} current={s.id===current} {...{copy,actions,useContextMenu,renderFactorySlot}}/>)}</div>
           {!bookSessions.length && <p className={css.message}>{archives ? copy.archived+' · 0' : copy.none}</p>}
@@ -189,16 +193,36 @@ function Shelf({wide, expandSidebar, useWorkspaces, useSessions, useSessionStatu
           onKeyDown={e=>{if(e.key==='Enter' && !e.nativeEvent.isComposing && filtered[0])choose(filtered[0])}}/>
           {categories.length>0 && <select aria-label={copy.category} value={category} onChange={e=>setCategory(e.target.value)}><option value="">{copy.category}</option>{categories.map(c=><option key={c}>{c}</option>)}</select>}
         </div>
-        <div className={css.catalogScroll}><div className={css.grid}>{filtered.map(b=><button type="button" key={b.key} className={css.coverButton} aria-pressed={b.key===book?.key} onClick={()=>choose(b)} aria-label={b.name}>{cover(b)}</button>)}
+        <div className={css.catalogScroll}><div className={css.grid}>{filtered.map(b=><button type="button" key={b.key} className={css.coverButton} {...getTriggerProps(projectMenuTarget(b))} aria-pressed={b.key===book?.key} onClick={()=>choose(b)} aria-label={b.name}>{cover(b)}</button>)}
           {canAdd && <button type="button" className={css.addBook} aria-label={copy.add} onClick={beginAdd}><span className={css.addBookMark} aria-hidden="true">+</span><strong>{copy.add}</strong><span className={css.addBookHint}>{copy.addHint}</span></button>}
         </div>
         {!filtered.length && <p className={css.message}>{copy.unmatched}</p>}</div>
       </div>
     </Modal>}
+    {projectAction && <ProjectActionDialog key={projectAction.book.id+projectAction.action} request={projectAction} actions={actions} language={language} close={()=>setProjectAction(null)}/> }
     {picking && <FolderBrowser actions={actions} copy={copy} close={()=>setPicking(false)} choose={adopt}/> }
     {edit && <ProjectAppearanceDialog open mode={edit.id ? 'edit':'create'} language={language} path={edit.path} defaultName={edit.folder || folderTitle(edit.path)} initialValue={edit} categories={categories} onClose={()=>setEdit(null)} onSubmit={save}
       onRemove={edit.id && canRemove ? ()=>remove(edit.id) : undefined}/>}
   </>
+}
+function ProjectActionDialog({request,actions,language,close}) {
+  const zh=language.toLowerCase().startsWith('zh'),deleting=request.action==='delete'
+  const [name,setName]=useState(request.book.name),[busy,setBusy]=useState(false),[error,setError]=useState('')
+  const working=useRef(false)
+  const title=deleting ? (zh ? '删除工作区' : 'Remove workspace') : (zh ? '重命名' : 'Rename')
+  async function submit(e) {
+    e.preventDefault();if(working.current)return;working.current=true;setBusy(true);setError('')
+    try{if(deleting)await actions.remove(request.book.id);else await actions.rename(request.book.id,name.trim());close()}
+    catch(e){setError(e.message)}finally{working.current=false;setBusy(false)}
+  }
+  return <Modal open headless title={title} onClose={()=>{if(!working.current)close()}} className={css.pathDialog}>
+    <form className={css.pathForm} onSubmit={submit}>
+      <header><h2>{title}</h2></header>
+      {deleting ? <p>{zh ? '从工作区移除“'+request.book.name+'”？项目文件和历史会话会保留。' : 'Remove “'+request.book.name+'” from the workspace? Project files and conversation history are kept.'}</p> : <label>{zh ? '项目名称' : 'Project name'}<input data-modal-autofocus value={name} disabled={busy} onChange={e=>setName(e.target.value)}/></label>}
+      {error && <p role="alert" className={css.error}>{error}</p>}
+      <footer><button type="button" disabled={busy} onClick={close}>{zh ? '取消' : 'Cancel'}</button><button type="submit" disabled={busy} data-danger={deleting || undefined}>{deleting ? (zh ? '确认移除' : 'Confirm removal') : (zh ? '保存' : 'Save')}</button></footer>
+    </form>
+  </Modal>
 }
 function NewProjectSetup({actions}) {
   const queue = useSyncExternalStore(actions.setup.subscribe,actions.setup.getSnapshot)
@@ -215,8 +239,12 @@ function ModeButton({children,wide,actions}) {
   const [copy] = useCopy(actions)
   return <>{children}{native && <button type="button" className={css.returnButton} title={copy.bookshelf} aria-label={copy.bookshelf} onClick={()=>actions.mode.set(false)}><IconLayersOutlineRegular size={16}/>{wide && <span>{copy.bookshelf}</span>}</button>}</>
 }
-export const inject = ['slots','uiWorkspace','workspaces','uiSession','remoteAccess','locale','contextMenus','remote','remote.directoryPicker']
+// The native picker namespace lives in another plugin; keep it out of the mount gate.
+export const inject = ['slots','uiWorkspace','workspaces','uiSession','remoteAccess','locale','contextMenus','remote']
 export function apply(ctx) {
+  const remotePicker = () => { try { return ctx.remote && ctx.remote.directoryPicker } catch { return undefined } }
+  // Mount markers: a missing shelf can be told apart from a stale bundle by reading these.
+  try { localStorage.setItem('dsh.project-bookshelf.mount', String(Date.now())) } catch {}
   let native = localStorage.getItem('dsh.project-bookshelf.native')==='true'
   const listeners=new Set()
   const mode = {
@@ -245,9 +273,14 @@ export function apply(ctx) {
   ctx.effect(()=>watchNewProjects(workspaceSource,row=>{
     pendingProjects=[...pendingProjects,row];notifySetup()
   }))
+  const projectMenuListeners=new Set()
+  const projectMenu={subscribe:listener=>{projectMenuListeners.add(listener);return()=>projectMenuListeners.delete(listener)}}
+  ctx.slots.inject('contextMenu.icon',()=>ctx.slots.register({name:'contextMenu.icon',key:'project-bookshelf.settings'},IconListPenOutlineRegular))
+  registerProjectMenus(ctx,request=>{for(const listener of [...projectMenuListeners])listener(request)})
   const actions = {
-    mode,setup,workspaceSource,
-    pickFolder:()=>pickProjectDirectory(globalThis.__DSH_DIRECTORY_PICKER__,ctx.remote.directoryPicker),
+    mode,setup,workspaceSource,projectMenu,
+    rename:async(id,name)=>{await ctx.workspaces.rename(id,name);writeCover(localStorage,id,{...readCover(localStorage,id),name});window.dispatchEvent(new Event('dsh-project-bookshelf:cover'))},
+    pickFolder:()=>{const remote=remotePicker();return remote?pickProjectDirectory(globalThis.__DSH_DIRECTORY_PICKER__,remote):{kind:'browse'}},
     listDirectory:path=>ctx.uiWorkspace.listDirectory(path),create:path=>ctx.workspaces.create({path}),
     subscribeLocale:listener=>ctx.locale.subscribe(listener),language:()=>ctx.locale.getLocale().active,
     open:id=>ctx.uiWorkspace.openSession(id),start:id=>ctx.uiWorkspace.startSession(id),restore:id=>ctx.uiWorkspace.unarchiveSession(id),
@@ -267,6 +300,7 @@ export function apply(ctx) {
     const sync=()=>{
       if(native){release?.();release=undefined}
       else if(!release)release=ctx.slots.register({name:'sidebar.workspaces',priority:-100,inject:()=>({actions})},Shelf)
+      try{localStorage.setItem('dsh.project-bookshelf.state',native?'native':'shelf')}catch{}
     }
     sync();const unsubscribe=mode.subscribe(sync)
     return()=>{unsubscribe();release?.()}
