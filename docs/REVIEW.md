@@ -63,3 +63,13 @@ dsh plugin --profile web add https://github.com/zhishengplus/dsh-project-bookshe
 安装后应看到该配置已有的项目，点书封可打开项目目录。外观设置中的移除动作会再次确认；也可以在测试配置先创建一个普通文件和两段会话，再验证移除登记后这些内容仍保留。
 
 [操作演示](../README.md#demo) · [更新记录](../CHANGELOG.md) · [问题反馈](https://github.com/zhishengplus/dsh-project-bookshelf/issues)
+
+## 1.1.3 实际界面（虚构项目）
+
+新会话位于会话标题右侧，归档入口位于书封操作行。
+
+![会话与归档操作](media/project-controls-1.1.3.png)
+
+移除项目须再次确认，界面明确说明文件夹和会话保留；截图仅展示确认步骤，没有操作真实项目。
+
+![项目移除确认](media/remove-project-1.1.3.png)
