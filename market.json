@@ -1,0 +1,71 @@
+{
+  "format": 1,
+  "title": {
+    "zh": "项目书架",
+    "en": "Project Bookshelf"
+  },
+  "metadata": {
+    "categories": {
+      "workspace": {
+        "title": {
+          "zh": "工作区",
+          "en": "Workspace"
+        }
+      }
+    },
+    "labels": {
+      "books": {
+        "title": {
+          "zh": "书架",
+          "en": "Bookshelf"
+        }
+      },
+      "sessions": {
+        "title": {
+          "zh": "会话管理",
+          "en": "Sessions"
+        }
+      }
+    }
+  },
+  "plugins": [
+    {
+      "name": "dsh-project-bookshelf",
+      "title": {
+        "zh": "项目书架",
+        "en": "Project Bookshelf"
+      },
+      "description": {
+        "zh": "用封面认项目，把每段会话收进它自己的章节。12 种纸色、12 枚印记，点开书封就能换一本。",
+        "en": "Browse your workspaces by their covers and resume conversations as chapters."
+      },
+      "icon": "icon.svg",
+      "author": "zhishengplus",
+      "homepage": "https://github.com/zhishengplus/dsh-project-bookshelf#readme",
+      "repository": {
+        "url": "https://github.com/zhishengplus/dsh-project-bookshelf"
+      },
+      "metadata": {
+        "category": "workspace",
+        "labels": [
+          "books",
+          "sessions"
+        ]
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "publishTimestamp": 1794646638,
+          "engines": {
+            "dsh": ">=0.2.2-rc.3 <0.3.0"
+          },
+          "source": {
+            "type": "git",
+            "url": "https://github.com/zhishengplus/dsh-project-bookshelf",
+            "commit": "e27889e887850f5c8a297f0b58959b976bf1c51c"
+          }
+        }
+      ]
+    }
+  ]
+}
