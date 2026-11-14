@@ -96,3 +96,5 @@ npm run build
 [MIT 许可证](LICENSE) · [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) · [DSH 插件索引指南](https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/user/guide/plugin-market.zh.md)
 
 项目外观设置中的「移除项目」需再次确认，只移除项目登记，保留文件夹和会话历史。「新会话」位于会话栏标题，归档入口位于书封操作行。
+
+社区维护者可查看[收录核验材料](docs/REVIEW.md)，包含固定安装来源、实现对应关系与验证范围。

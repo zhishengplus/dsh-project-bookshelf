@@ -47,3 +47,5 @@ Display names are saved through DSH. Cover preferences use host workspace metada
 [MIT License](LICENSE) · [Report an issue](https://github.com/zhishengplus/dsh-project-bookshelf/issues)
 
 New session sits beside the conversation heading. The cover toolbar opens archived conversations, including ungrouped ones. Removing a project requires confirmation and keeps its folder and conversation history.
+
+For maintainers: [listing verification notes](docs/REVIEW.md) document pinned installation sources, implementation references and test scope.
