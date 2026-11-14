@@ -1,7 +1,7 @@
 /** Controlled project naming, appearance, category, and notification form. */
 import { useId, useRef, useState } from 'react'
 import {
-  Button, IconCheckOutlineRegular, IconCloseOutlineRegular, Input, Modal,
+  Button, IconCheckOutlineRegular, IconCloseOutlineRegular, IconTrashOutlineRegular, Input, Modal,
 } from '@deepseek-ai/dsh-client-ui-primitives'
 import { projectTranslate, type ProjectTranslate } from './project-locales.ts'
 import { MiniCover, ProjectCover, coverColors, coverIcons, coverInk, folderTitle, type ProjectColor, type ProjectIcon } from './ProjectCover.tsx'
@@ -125,6 +125,8 @@ export interface ProjectAppearanceDialogProps {
   categories?: readonly string[] | undefined
   initialValue: ProjectAppearanceValue
   onSubmit: (value: ProjectAppearanceValue) => void | Promise<void>
+  /** Removes the project registration only; omit to hide the removal control. */
+  onRemove?: (() => Promise<void>) | undefined
   onClose: () => void
   t?: ProjectTranslate | undefined
   language?: string | undefined
@@ -136,12 +138,13 @@ export function ProjectAppearanceDialog(props: ProjectAppearanceDialogProps) {
 }
 
 function ProjectAppearanceDialogContent({
-  mode, defaultName, initialValue, path, categories, onSubmit, onClose, t, language = 'zh-CN',
+  mode, defaultName, initialValue, path, categories, onSubmit, onRemove, onClose, t, language = 'zh-CN',
 }: ProjectAppearanceDialogProps) {
   const text = projectTranslate(language, t)
   const [value, setValue] = useState(initialValue)
   const [pending, setPending] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [confirming, setConfirming] = useState(false)
   const saving = useRef(false)
   const folder = folderTitle(path) || defaultName
   const close = (): void => { if (!pending) onClose() }
@@ -156,6 +159,21 @@ function ProjectAppearanceDialogContent({
       onClose()
     } catch (reason: unknown) {
       saving.current = false
+      setError(reason instanceof Error ? reason.message : String(reason))
+      setPending(false)
+    }
+  }
+  const remove = async (): Promise<void> => {
+    if (onRemove === undefined || saving.current) return
+    saving.current = true
+    setPending(true)
+    setError(null)
+    try {
+      await onRemove()
+      onClose()
+    } catch (reason: unknown) {
+      saving.current = false
+      setConfirming(false)
       setError(reason instanceof Error ? reason.message : String(reason))
       setPending(false)
     }
@@ -192,7 +210,20 @@ function ProjectAppearanceDialogContent({
         {error !== null && <div className={css.error} role="alert">{error}</div>}
       </section>
     </div>
+    {confirming && <div className={css.removeConfirm} role="alert">
+      <p>{text('project.remove.confirm')}</p>
+      <div className={css.removeActions}>
+        <Button type="button" variant="outline" disabled={pending} onClick={() => { setConfirming(false) }}>{text('project.cancel')}</Button>
+        <button type="button" className={css.removeConfirmButton} disabled={pending} onClick={() => { void remove() }}>
+          {text('project.remove.action')}
+        </button>
+      </div>
+    </div>}
     <footer className={css.dialogFooter}>
+      {onRemove !== undefined && !confirming && <button type="button" className={css.removeButton} disabled={pending}
+        onClick={() => { setConfirming(true) }}>
+        <IconTrashOutlineRegular size={14} />{text('project.remove.action')}
+      </button>}
       <Button type="button" variant="outline" disabled={pending} onClick={close}>{text('project.cancel')}</Button>
       <Button type="submit" variant="primary" disabled={pending} aria-busy={pending}>
         {text(mode === 'create' ? 'project.create.action' : 'project.edit.action')}

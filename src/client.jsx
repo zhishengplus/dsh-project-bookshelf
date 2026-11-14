@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react'
 import {
+  IconArchiveCheckOutlineRegular, IconArchiveOutlineRegular,
   IconChevronRightOutlineRegular, IconCloseOutlineRegular, IconFolderOpenRegular,
   IconLayersOutlineRegular, IconListPenOutlineRegular, IconNewChatOutlineRegular,
   IconSearchOutlineRegular, Modal,
@@ -113,6 +114,7 @@ function Shelf({wide, expandSidebar, useWorkspaces, useSessions, useSessionStatu
   const book = books.find(b=>b.key===selected) || books.find(b=>b.memberIds.includes(current)) || books[0]
   const canCreate = useRemoteAccess('workspace/create')
   const canAdd = canCreate
+  const canRemove = useWorkspaceAccess(book ? book.id : '', 'workspace/delete')
   async function adopt(path) {
     const project=await actions.create(path)
     select(project.workspaceId);setPicking(false)
@@ -141,6 +143,10 @@ function Shelf({wide, expandSidebar, useWorkspaces, useSessions, useSessionStatu
     await actions.save(edit.id,value)
     select(edit.id);refresh(v=>v+1)
   }
+  async function remove(id) {
+    await actions.remove(id)
+    select('');showArchives(false);refresh(v=>v+1)
+  }
   return <>
     <section ref={wide ? bindScrollerRef : undefined} className={css.shelf} data-bookshelf="" data-wide={wide}>
       {wide ? <>
@@ -157,10 +163,17 @@ function Shelf({wide, expandSidebar, useWorkspaces, useSessions, useSessionStatu
           </div>
           <div className={css.switcher}>
             <button type="button" className={css.libraryButton} onClick={openCatalog}><IconLayersOutlineRegular size={15}/>{copy.library}<small>{books.filter(b=>b.id).length}</small><IconChevronRightOutlineRegular size={12}/></button>
-            {book.id && <><NewChapter book={book} actions={actions} useWorkspaceAccess={useWorkspaceAccess} copy={copy}/><button type="button" title={copy.edit} aria-label={copy.edit} onClick={()=>setEdit(book)}><IconListPenOutlineRegular size={16}/></button></>}
+            {book.id && <>
+              <button type="button" className={css.archiveToggle} data-active={archives || undefined} aria-pressed={archives}
+                title={archives ? copy.hideArchived : copy.showArchived} aria-label={archives ? copy.hideArchived : copy.showArchived}
+                onClick={()=>{showArchives(!archives);showAll(false)}}>
+                {archives ? <IconArchiveCheckOutlineRegular size={16}/> : <IconArchiveOutlineRegular size={16}/>}
+              </button>
+              <button type="button" title={copy.edit} aria-label={copy.edit} onClick={()=>setEdit(book)}><IconListPenOutlineRegular size={16}/></button>
+            </>}
           </div>
           {adjacent.length>0 && <div className={css.adjacent}>{adjacent.map(b=><button type="button" key={b.key} onClick={()=>choose(b)} style={coverInk(b.color)} title={b.name}><span className={css.miniBook}><MiniCover icon={b.icon}/></span><span className={css.quickTitle}>{b.name}</span><Activity activity={activityOf(b)} copy={copy} compact/></button>)}</div>}
-          <div className={css.chapterHead}><span>{archives ? copy.archived : copy.chapters}</span><button type="button" title={archives ? copy.hideArchived : copy.showArchived} aria-label={archives ? copy.hideArchived : copy.showArchived} onClick={()=>{showArchives(!archives);showAll(false)}}>{archives ? '↶' : '▤'}</button></div>
+          <div className={css.chapterHead}><span>{archives ? copy.archived : copy.chapters}</span>{book.id && !archives && <NewChapter book={book} actions={actions} useWorkspaceAccess={useWorkspaceAccess} copy={copy}/>}</div>
           <div className={css.chapters}>{visible.map(s=><Chapter key={s.id} session={s} archived={archives} current={s.id===current} {...{copy,actions,useContextMenu,renderFactorySlot}}/>)}</div>
           {!bookSessions.length && <p className={css.message}>{archives ? copy.archived+' · 0' : copy.none}</p>}
           {bookSessions.length>12 && <button type="button" className={css.more} onClick={()=>showAll(!all)}>{all ? copy.less : copy.more+' '+(bookSessions.length-12)}</button>}
@@ -183,7 +196,8 @@ function Shelf({wide, expandSidebar, useWorkspaces, useSessions, useSessionStatu
       </div>
     </Modal>}
     {picking && <FolderBrowser actions={actions} copy={copy} close={()=>setPicking(false)} choose={adopt}/> }
-    {edit && <ProjectAppearanceDialog open mode={edit.id ? 'edit':'create'} language={language} path={edit.path} defaultName={edit.folder || folderTitle(edit.path)} initialValue={edit} categories={categories} onClose={()=>setEdit(null)} onSubmit={save}/>}
+    {edit && <ProjectAppearanceDialog open mode={edit.id ? 'edit':'create'} language={language} path={edit.path} defaultName={edit.folder || folderTitle(edit.path)} initialValue={edit} categories={categories} onClose={()=>setEdit(null)} onSubmit={save}
+      onRemove={edit.id && canRemove ? ()=>remove(edit.id) : undefined}/>}
   </>
 }
 function NewProjectSetup({actions}) {
@@ -237,6 +251,7 @@ export function apply(ctx) {
     listDirectory:path=>ctx.uiWorkspace.listDirectory(path),create:path=>ctx.workspaces.create({path}),
     subscribeLocale:listener=>ctx.locale.subscribe(listener),language:()=>ctx.locale.getLocale().active,
     open:id=>ctx.uiWorkspace.openSession(id),start:id=>ctx.uiWorkspace.startSession(id),restore:id=>ctx.uiWorkspace.unarchiveSession(id),
+    remove:id=>ctx.workspaces.delete(id),
     save:async(id,value)=>{
       if(typeof ctx.workspaces.updateMetadata==='function'){
         const {name,...metadata}=value

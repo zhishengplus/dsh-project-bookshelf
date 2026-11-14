@@ -14,6 +14,8 @@
 @media (prefers-reduced-motion:reduce) { .spinner { animation:none; } }
 .toolbar button,.switcher>button:not(.libraryButton),.chapterHead button,.menu,.rail { width:28px; height:28px; display:inline-flex; align-items:center; justify-content:center; padding:0; border-radius:5px; }
 .toolbar button:hover,.switcher>button:hover,.chapterHead button:hover { background:var(--dsw-alias-interactive-bg-hover); }
+.archiveToggle[data-active] { color:var(--dsw-alias-state-business-primary); background:color-mix(in srgb,currentColor 14%,transparent); }
+.archiveToggle[data-active]:hover { background:color-mix(in srgb,currentColor 22%,transparent); }
 .volume { position:relative; isolation:isolate; padding-bottom:5px; }
 .volume::before,.volume::after { content:''; position:absolute; border-radius:3px 8px 8px 3px; inset:5px 4px 2px 3px; background:color-mix(in srgb,var(--cloth) 62%,var(--print)); z-index:-1; }
 .volume::after { inset:7px 8px 0 5px; z-index:-2; background:color-mix(in srgb,var(--cloth) 33%,var(--print)); }
@@ -32,7 +34,9 @@
 .adjacent button { gap:8px; min-width:0; padding:6px 4px; border-radius:5px; text-align:start; background:transparent; font-size:12px; }
 .adjacent button:hover { background:var(--dsw-alias-interactive-bg-hover); }
 .miniBook { width:23px; height:29px; flex:none; }
-.chapterHead { justify-content:space-between; font-size:12px; margin:13px 2px 4px; }
+.chapterHead { justify-content:space-between; gap:4px; font-size:12px; margin:9px 0 2px 2px; }
+.chapterHead>button { color:var(--dsw-alias-label-secondary); }
+.chapterHead>button:hover { color:var(--dsw-alias-label-primary); }
 .chapters { display:grid; gap:2px; }
 .chapter { position:relative; display:flex; align-items:center; border-radius:6px; min-width:0; }
 .chapter:hover,.chapter:focus-within,.chapter[data-current] { background:var(--dsw-alias-interactive-bg-hover); }

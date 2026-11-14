@@ -37,10 +37,21 @@
 .choiceDot:empty { display: none; }
 .choiceDot { display: inline-flex; }
 .dialogFooter { justify-content: flex-end; }
+.removeButton { display: inline-flex; align-items: center; gap: 6px; margin-inline-end: auto; min-height: 32px; padding: 0 10px; border: 1px solid transparent;
+  border-radius: var(--dsw-radius-md); color: var(--dsw-alias-state-error-primary); background: transparent; font: inherit; font-size: 12px; cursor: pointer; }
+.removeConfirm { flex: none; display: flex; align-items: center; gap: 14px; padding: 12px 21px; border-top: 1px solid var(--dsw-alias-border-l2);
+  background: color-mix(in srgb, var(--dsw-alias-state-error-primary) 9%, transparent); }
+.removeConfirm p { margin: 0; margin-inline-end: auto; font-size: 12px; line-height: 17px; color: var(--dsw-alias-label-primary); }
+.removeActions { display: flex; flex: none; gap: 8px; }
+.removeConfirmButton { min-height: 32px; padding: 0 14px; border: 0; border-radius: var(--dsw-radius-md);
+  color: #fff; background: var(--dsw-alias-state-error-primary); font: inherit; font-size: 12px; cursor: pointer; }
+.removeConfirmButton:hover { filter: brightness(1.08); }
+.removeConfirmButton:disabled { opacity: .6; cursor: default; }
 .error { margin-top: 12px; color: var(--dsw-alias-state-error-primary); font-size: 12px; overflow-wrap: anywhere; }
 .form button:focus-visible, .closeButton:focus-visible, .advanced summary:focus-visible { outline: 2px solid var(--dsw-alias-state-business-primary); outline-offset: 1px; }
 .form button:disabled, .closeButton:disabled { cursor: default; opacity: .6; }
-@media (hover:hover) { .closeButton:hover, .iconOption:hover, .notification:hover, .statusOption:hover { background: var(--dsw-alias-interactive-bg-hover); } }
+@media (hover:hover) { .closeButton:hover, .iconOption:hover, .notification:hover, .statusOption:hover { background: var(--dsw-alias-interactive-bg-hover); }
+  .removeButton:hover { background: color-mix(in srgb, var(--dsw-alias-state-error-primary) 11%, transparent); } }
 @media (max-width: 670px) {
   .workbench { grid-template-columns: minmax(0,1fr); }
   .preview { padding: 12px 17px; display: grid; grid-template-columns: minmax(140px,1.4fr) minmax(0,1fr); align-items: center; gap: 6px 14px; border-inline-end: 0; border-bottom: 1px solid var(--dsw-alias-border-l2); }
@@ -49,5 +60,6 @@
   .directory { grid-column: 2; align-self: start; margin: 0; max-height: 74px; overflow: auto; }
   .editor { padding: 14px 17px; }
   .dialogHeader, .dialogFooter { padding: 10px 16px; }
+  .removeConfirm { flex-wrap: wrap; padding: 10px 16px; }
 }
 @media (max-width: 420px) { .icons { grid-template-columns: repeat(4,minmax(0,1fr)); } .editor { padding-inline: 12px; } .preview { grid-template-columns: minmax(130px,1.5fr) minmax(0,1fr); } }
