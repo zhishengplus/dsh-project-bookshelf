@@ -36,8 +36,8 @@
         "en": "Project Bookshelf"
       },
       "description": {
-        "zh": "用封面认项目，把每段会话收进它自己的章节。12 种纸色、12 枚印记，点开书封就能换一本。",
-        "en": "Browse your workspaces by their covers and resume conversations as chapters."
+        "zh": "把整个工作区变成书架，自动接入已有项目和会话。点书封换项目，按章节继续对话，一键切回原版工作区。",
+        "en": "Replace the workspace with a bookshelf for existing projects and conversations. Switch back to the original workspace at any time."
       },
       "icon": "icon.svg",
       "author": "zhishengplus",
@@ -53,6 +53,16 @@
         ]
       },
       "versions": [
+        {
+          "version": "1.1.0",
+          "publishTimestamp": 1794652443,
+          "engines": {"dsh": ">=0.2.2-rc.3 <0.3.0"},
+          "source": {
+            "type": "git",
+            "url": "https://github.com/zhishengplus/dsh-project-bookshelf",
+            "commit": "9ee40474c5d391fc78655d3fe22bf2e985e30729"
+          }
+        },
         {
           "version": "1.0.0",
           "publishTimestamp": 1794646638,
