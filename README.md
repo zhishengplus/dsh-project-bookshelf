@@ -6,7 +6,7 @@
 
 **把项目摆上书架，把会话翻成章节。**
 
-[下载 v1.1.4](https://github.com/zhishengplus/dsh-project-bookshelf/releases/download/v1.1.4/dsh-project-bookshelf-1.1.4.tgz)　·　[在 DSH 中安装](#install)　·　[看操作演示](#demo)　·　[English](README.en.md)
+[下载 v1.1.5](https://github.com/zhishengplus/dsh-project-bookshelf/releases/download/v1.1.5/dsh-project-bookshelf-1.1.5.tgz)　·　[在 DSH 中安装](#install)　·　[看操作演示](#demo)　·　[English](README.en.md)
 
 </div>
 
@@ -29,7 +29,7 @@
 <a id="install"></a>
 ## 把书架装进 DSH
 
-已启用[开放插件市场](https://dshopen.org)的用户，可以在「插件 → 发现」搜索 **项目书架** 并安装。当前完整版本为 **1.1.4**。社区市场同步有延迟；若「发现」仍显示旧版，请使用下面的作者索引或发行包。若 DSH 提示重启，按界面提示操作。
+已启用[开放插件市场](https://dshopen.org)的用户，可以在「插件 → 发现」搜索 **项目书架** 并安装。当前完整版本为 **1.1.5**。社区市场同步有延迟；若「发现」仍显示旧版，请使用下面的作者索引或发行包。若 DSH 提示重启，按界面提示操作。
 
 也可以在「插件 → 实验性插件」启用 **自定义插件索引**，打开「发现 → 添加索引源」，添加作者索引：
 
@@ -45,7 +45,7 @@ https://raw.githubusercontent.com/zhishengplus/dsh-project-bookshelf/main/market
 已安装 DSH CLI 的 Web 用户运行：
 
 ```sh
-dsh plugin --profile web add https://github.com/zhishengplus/dsh-project-bookshelf/releases/download/v1.1.4/dsh-project-bookshelf-1.1.4.tgz
+dsh plugin --profile web add https://github.com/zhishengplus/dsh-project-bookshelf/releases/download/v1.1.5/dsh-project-bookshelf-1.1.5.tgz
 ```
 
 也可以从 [Releases](https://github.com/zhishengplus/dsh-project-bookshelf/releases/latest) 下载 `.tgz`，再将命令里的 URL 换成本地安装包的绝对路径。使用 Desktop **内置命令**时，将 `--profile web` 换成 `--profile desktop`。普通 npm CLI 管理的是 Web 等 profile。

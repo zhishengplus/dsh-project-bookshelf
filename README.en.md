@@ -2,7 +2,7 @@
 
 Recognize a workspace by its cover. Pick a chapter to reopen the conversation where you left off.
 
-[Download v1.1.4](https://github.com/zhishengplus/dsh-project-bookshelf/releases/latest) · [中文](README.md)
+[Download v1.1.5](https://github.com/zhishengplus/dsh-project-bookshelf/releases/latest) · [中文](README.md)
 
 ![Six fictional workspaces on the collection shelf](docs/media/catalog.png)
 
@@ -17,10 +17,10 @@ https://raw.githubusercontent.com/zhishengplus/dsh-project-bookshelf/main/market
 For the Web CLI:
 
 ```sh
-dsh plugin --profile web add https://github.com/zhishengplus/dsh-project-bookshelf/releases/download/v1.1.4/dsh-project-bookshelf-1.1.4.tgz
+dsh plugin --profile web add https://github.com/zhishengplus/dsh-project-bookshelf/releases/download/v1.1.5/dsh-project-bookshelf-1.1.5.tgz
 ```
 
-The complete release is **1.1.4**. Community catalogs may take time to sync; if an older version is offered, use the author index or release tarball above.
+The complete release is **1.1.5**. Community catalogs may take time to sync; if an older version is offered, use the author index or release tarball above.
 
 ## Open the first book
 
