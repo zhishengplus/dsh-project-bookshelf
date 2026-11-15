@@ -959,6 +959,7 @@ function Shelf({ wide, expandSidebar, useWorkspaces, useSessions, useSessionStat
     const project = await actions.create(path);
     select(project.workspaceId);
     setPicking(false);
+    actions.start(project.workspaceId);
   }
   async function beginAdd() {
     if (adding.current) return;
@@ -983,12 +984,20 @@ function Shelf({ wide, expandSidebar, useWorkspaces, useSessions, useSessionStat
     setCategory("");
     setCatalog(true);
   };
+  function reveal(b) {
+    if (!b) return;
+    if (current && b.memberIds.includes(current)) return;
+    const latest = b.chapters.filter((s) => !s.blank).reduce((latest2, s) => !latest2 || s.updatedAt > latest2.updatedAt ? s : latest2, void 0);
+    if (latest) actions.open(latest.id);
+    else if (b.id) actions.start(b.id);
+  }
   const choose = (b) => {
     select(b.key);
     showAll(false);
     showArchives(false);
     setCatalog(false);
     setQuery("");
+    reveal(b);
   };
   const bookSessions = book ? chapterList(book.memberIds, sessions.byId, new Set(workspaces.archivedSessionIds), { archives, current, pinned: workspaces.pinnedSessionIds }) : [];
   const first = book?.chapters.filter((s) => !s.blank).reduce((latest, s) => !latest || s.updatedAt > latest.updatedAt ? s : latest, void 0);
@@ -1003,6 +1012,7 @@ function Shelf({ wide, expandSidebar, useWorkspaces, useSessions, useSessionStat
     await actions.save(edit.id, value);
     select(edit.id);
     refresh((v) => v + 1);
+    reveal(edit);
   }
   async function remove(id) {
     await actions.remove(id);

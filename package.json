@@ -1,6 +1,6 @@
 {
   "name": "dsh-project-bookshelf",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "author": "zhishengplus",
   "description": "项目书架 · 用封面认项目，把每段会话收进它自己的章节。DeepSeek Harness 社区插件。",
   "type": "module",

@@ -121,7 +121,7 @@ function Shelf({wide, expandSidebar, useWorkspaces, useSessions, useSessionStatu
   const canRemove = useWorkspaceAccess(edit?.id || book?.id || '', 'workspace/delete')
   async function adopt(path) {
     const project=await actions.create(path)
-    select(project.workspaceId);setPicking(false)
+    select(project.workspaceId);setPicking(false);actions.start(project.workspaceId)
   }
   async function beginAdd() {
     if(adding.current)return
@@ -133,7 +133,17 @@ function Shelf({wide, expandSidebar, useWorkspaces, useSessions, useSessionStatu
   const needle = query.trim().toLocaleLowerCase()
   const filtered = books.filter(b=>(!category || category===b.category) && (matchBook(b,query) || b.allSessions.some(s=>s.title?.toLocaleLowerCase().includes(needle))))
   const openCatalog = ()=>{setQuery('');setCategory('');setCatalog(true)}
-  const choose = b=>{select(b.key);showAll(false);showArchives(false);setCatalog(false);setQuery('')}
+  // Keep the right-side Conversation on the book the shelf highlights: reuse
+  // the same "resume" target (latest non-blank chapter), or open the project's
+  // blank. A book already holding the current session stays untouched.
+  function reveal(b) {
+    if(!b)return
+    if(current && b.memberIds.includes(current))return
+    const latest=b.chapters.filter(s=>!s.blank).reduce((latest,s)=>!latest || s.updatedAt>latest.updatedAt ? s : latest,undefined)
+    if(latest)actions.open(latest.id)
+    else if(b.id)actions.start(b.id)
+  }
+  const choose = b=>{select(b.key);showAll(false);showArchives(false);setCatalog(false);setQuery('');reveal(b)}
   const bookSessions = book ? chapterList(book.memberIds,sessions.byId,new Set(workspaces.archivedSessionIds),{archives,current,pinned:workspaces.pinnedSessionIds}) : []
   const first = book?.chapters.filter(s=>!s.blank).reduce((latest,s)=>!latest || s.updatedAt>latest.updatedAt ? s : latest,undefined)
   const activityOf = b=>bookActivity(b,statuses)
@@ -145,7 +155,7 @@ function Shelf({wide, expandSidebar, useWorkspaces, useSessions, useSessionStatu
   }
   async function save(value) {
     await actions.save(edit.id,value)
-    select(edit.id);refresh(v=>v+1)
+    select(edit.id);refresh(v=>v+1);reveal(edit)
   }
   async function remove(id) {
     await actions.remove(id)
